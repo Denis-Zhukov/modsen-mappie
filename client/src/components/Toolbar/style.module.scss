@@ -1,0 +1,87 @@
+.wrapper {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.logoBtn {
+  width: 22px;
+  height: 22px;
+  fill: #FFFFFF;
+}
+
+.toolbar {
+  padding: 37px 39px;
+  height: calc(100% - 74px);
+
+
+  .logo {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 40px;
+  }
+
+  .btn {
+    padding: 19px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    border: 3px solid #C4C4C4;
+  }
+
+  .searchBtn {
+    background: #FFFFFF;
+
+    > svg {
+      fill: #5E7BC7;
+    }
+  }
+
+  .searchActive {
+    border: none;
+    background: #5E7BC7;
+
+    > svg {
+      fill: #FFFFFF;
+    }
+  }
+
+  .bookmarkBtn {
+    background: #FFFFFF;
+
+    > svg {
+      fill: #C75E5E;
+    }
+  }
+
+  .bookmarkActive {
+    border: none;
+    background: #C75E5E;
+
+    > svg {
+      fill: #FFFFFF;
+    }
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  .toolbar {
+    padding: 30px 25px;
+
+    .logo {
+      width: 20px;
+      height: 20px;
+    }
+
+    .btn {
+      padding: 12.5px;
+      border-radius: 6px;
+    }
+  }
+}
