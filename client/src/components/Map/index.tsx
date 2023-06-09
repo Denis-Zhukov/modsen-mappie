@@ -1,4 +1,4 @@
-import {Circle, Map as YMap, Placemark, GeolocationControl} from '@pbe/react-yandex-maps';
+import {Circle, Map as YMap, Placemark, GeolocationControl, ZoomControl} from '@pbe/react-yandex-maps';
 import React, {FC, useCallback, useRef, useState} from 'react';
 
 import marker from '@images/person.png';
@@ -82,10 +82,30 @@ export const Map: FC<Props> = ({defaultSettings, className}) => {
 
             instanceRef={mapRef}
             onBoundsChange={handleMapBoundsChange}
-            
+
+            options={{
+                suppressMapOpenBlock: true,
+                copyrightLogoVisible: false,
+                copyrightProvidersVisible: false,
+                copyrightUaVisible: false,
+            }}
+
             className={className}
         >
-            <GeolocationControl options={{float: 'right'}} onClick={handleCenter}/>
+            <GeolocationControl options={{
+                position: {
+                    bottom: '1rem',
+                    right: '3rem',
+                },
+            }} onClick={handleCenter}/>
+            <ZoomControl options={{
+                position: {
+                    bottom: '1rem',
+                    right: '1rem',
+                },
+                size: 'small',
+            }}/>
+
             {
                 latitude && longitude && <>
                     <Placemark
