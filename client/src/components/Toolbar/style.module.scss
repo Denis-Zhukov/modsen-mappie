@@ -11,8 +11,8 @@
 }
 
 .toolbar {
-  padding: 37px 39px;
-  height: calc(100% - 74px);
+  padding: 30px 25px 25px 25px;
+  height: calc(100% - 55px);
 
 
   .logo {
@@ -22,40 +22,41 @@
   }
 
   .btn {
-    padding: 19px;
+    background: #FFFFFF;
+    width: 60px;
+    height: 60px;
     border-radius: 6px;
-    box-sizing: border-box;
-    border: 3px solid #C4C4C4;
+    border: 3px solid rgba(0, 0, 0, 0.2);
   }
 
-  .searchBtn {
-    background: #FFFFFF;
-
-    > svg {
-      fill: #5E7BC7;
-    }
+  .searchBtn > svg {
+    fill: #5E7BC7;
   }
 
   .searchActive {
     border: none;
     background: #5E7BC7;
 
+    &:hover {
+      background: darken(#5E7BC7, 5);
+    }
+
     > svg {
       fill: #FFFFFF;
     }
   }
 
-  .bookmarkBtn {
-    background: #FFFFFF;
-
-    > svg {
-      fill: #C75E5E;
-    }
+  .bookmarkBtn > svg {
+    fill: #C75E5E;
   }
 
   .bookmarkActive {
     border: none;
     background: #C75E5E;
+
+    &:hover {
+      background: darken(#C75E5E, 5);
+    }
 
     > svg {
       fill: #FFFFFF;
@@ -66,13 +67,15 @@
     width: 48px;
     height: 48px;
     border: 3px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
   }
 }
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 576px) {
   .toolbar {
-    padding: 30px 25px;
+    padding: 30px 15px 15px 15px;
+    height: calc(100% - 45px);
 
     .logo {
       width: 20px;
@@ -80,7 +83,8 @@
     }
 
     .btn {
-      padding: 12.5px;
+      width: 40px;
+      height: 40px;
       border-radius: 6px;
     }
   }
