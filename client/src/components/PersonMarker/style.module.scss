@@ -1,0 +1,20 @@
+.marker {
+  width: 32px;
+  height: 32px;
+
+  transform-origin: center center;
+
+  position: relative;
+  left: -16px;
+  top: -16px
+}
+
+@media screen and (max-width: 576px) {
+  .marker {
+    width: 18px;
+    height: 18px;
+
+    left: -9px;
+    top: -9px
+  }
+}

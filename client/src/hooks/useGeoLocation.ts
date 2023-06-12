@@ -7,7 +7,7 @@ export interface GeoLocation {
     error: string | null;
 }
 
-export const useGeoLocation = (): GeoLocation => {
+export const useGeoLocation = (retryTime?: number): GeoLocation => {
     const [geoLocation, setGeoLocation] = useState<GeoLocation>({
         latitude: null,
         longitude: null,
@@ -18,6 +18,7 @@ export const useGeoLocation = (): GeoLocation => {
     useEffect(() => {
         let isMounted = true;
         let watchId: number | null = null;
+        let retry: NodeJS.Timeout | null = null;
 
         const handleSuccess = (position: GeolocationPosition) => {
             if (isMounted) {
@@ -38,6 +39,7 @@ export const useGeoLocation = (): GeoLocation => {
                     accuracy: null,
                     error: error.message,
                 });
+                if (retryTime) retry = setTimeout(watchLocation, retryTime);
             }
         };
 
@@ -46,6 +48,8 @@ export const useGeoLocation = (): GeoLocation => {
                 watchId = navigator.geolocation.watchPosition(
                     handleSuccess,
                     handleError,
+                    //FIXME: зарядки на телефоне не хватает, вернуть true
+                    {enableHighAccuracy: false, maximumAge: 0},
                 );
             } else {
                 setGeoLocation({
@@ -54,6 +58,7 @@ export const useGeoLocation = (): GeoLocation => {
                     accuracy: null,
                     error: 'Geolocation is not supported',
                 });
+                if (retryTime) retry = setTimeout(watchLocation, retryTime);
             }
         };
 
@@ -61,11 +66,12 @@ export const useGeoLocation = (): GeoLocation => {
 
         return () => {
             isMounted = false;
-            if (watchId !== null) {
+            if (watchId !== null)
                 navigator.geolocation.clearWatch(watchId);
-            }
+            if (retry !== null)
+                clearTimeout(retry);
         };
-    }, []);
+    }, [retryTime]);
 
     return geoLocation;
 };
