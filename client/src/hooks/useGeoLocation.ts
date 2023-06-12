@@ -49,7 +49,7 @@ export const useGeoLocation = (retryTime?: number): GeoLocation => {
                     handleSuccess,
                     handleError,
                     //FIXME: зарядки на телефоне не хватает, вернуть true
-                    {enableHighAccuracy: false, maximumAge: 0},
+                    {enableHighAccuracy: true, maximumAge: 0},
                 );
             } else {
                 setGeoLocation({

@@ -13,6 +13,12 @@
       ],
       "@images/*": [
         "./images/*"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@hooks": [
+        "./hooks/index.ts"
       ]
     }
   }

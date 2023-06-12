@@ -1,14 +1,12 @@
 import {Circle} from '@pbe/react-yandex-maps';
 import React, {FC} from 'react';
+import {useGeoLocation} from '@hooks';
 
-interface Props {
-    geometry: [number, number];
-    accuracy: number;
-}
+export const PersonInaccuracy: FC = () => {
+    const {latitude, longitude, accuracy} = useGeoLocation(5000);
 
-export const PersonInaccuracy: FC<Props> = ({geometry, accuracy}) => {
     return <Circle
-        geometry={[geometry, accuracy]}
+        geometry={[[latitude, longitude], accuracy]}
         options={{
             fillColor: '#5e7bc7',
             fillOpacity: 0.2,

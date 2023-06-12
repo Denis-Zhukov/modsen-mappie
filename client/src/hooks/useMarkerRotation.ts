@@ -4,8 +4,8 @@ export const useMarkerRotation = () => {
     const [markerRotation, setMarkerRotation] = useState<number>(0);
 
     useEffect(() => {
-        const handleOrientation = (e: DeviceOrientationEvent) => {
-            const rotation = 360 - (e.alpha || 0);
+        const handleOrientation = ({alpha}: DeviceOrientationEvent) => {
+            const rotation = alpha ? 360 - alpha : 0;
             setMarkerRotation(rotation);
         };
 

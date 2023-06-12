@@ -1,51 +1,61 @@
-import {
-    Map as YMap,
-    GeolocationControl,
-    ZoomControl,
-} from '@pbe/react-yandex-maps';
-import React, {FC, useCallback, useEffect, useState} from 'react';
-import {PersonMarker} from '@components/PersonMarker';
-import {PersonInaccuracy} from '@components/PersonInaccuracy';
-import {useGeoLocation} from '../../hooks';
-import {useMarkerRotation} from '../../hooks/useMarkerRotation';
+import {Map as YMap, ZoomControl, Placemark} from '@pbe/react-yandex-maps';
+import React, {FC, useCallback, useEffect} from 'react';
+import {PersonMarker} from '@components/Map/PersonMarker';
+import {PersonInaccuracy} from '@components/Map/PersonInaccuracy';
+import {CenterControl} from '@components/Map/CenterControl';
+import {useActions, useAppSelector, useSetQueryParams} from '@hooks';
+import {useSearchParams} from 'react-router-dom';
+import icon from '@images/sight-icons/avocation.svg';
 
 
 interface Props {
-    defaultSettings: ymaps.IMapState & {
-        center: number[];
-        zoom: number
-    };
-    className: string;
+    className?: string;
+    defaultLon?: number;
+    defaultLat?: number;
+    defaultZoom?: number;
 }
 
 
-export const Map: FC<Props> = ({defaultSettings, className}) => {
-    const [settings, setSettings] = useState<ymaps.IMapState>({
-        center: defaultSettings.center,
-        zoom: defaultSettings.zoom,
-    });
+export const Map: FC<Props> = (
+    {
+        className,
+        defaultLon = 0,
+        defaultLat = 0,
+        defaultZoom = 10,
+    },
+) => {
+    const [searchParams] = useSearchParams();
 
-    const {
-        latitude,
-        longitude,
-        accuracy,
-        error,
-    } = useGeoLocation(5000);
+    const setParams = useSetQueryParams();
 
-    const rotation = useMarkerRotation();
-    console.log(rotation);
+    // const {data} = useGetPlacesQuery({geometry: MAP.center, radius: 500});
+    // const places: any[] = data?.elements ?? [];
+    const places: any[] = [];
+
+    const {setMapSettings} = useActions();
+    const mapSettings = useAppSelector(state => state.map);
 
     useEffect(() => {
-        if (error) alert(error);
-    }, [error]);
+        const lon = parseFloat(searchParams.get('lon')!) || defaultLon;
+        const lat = parseFloat(searchParams.get('lat')!) || defaultLat;
+        const zoom = parseFloat(searchParams.get('z')!) || defaultZoom;
 
-    const handleCenter = useCallback(() => {
-        if (latitude && longitude) setSettings({center: [latitude, longitude], zoom: 15});
-    }, [latitude, longitude]);
+        setMapSettings({center: [lon, lat], zoom});
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [defaultLon, defaultLat, defaultZoom]);
+
+    const handleBoundsChange = useCallback((event: ymaps.IEvent) => {
+        const map = event.get('target');
+        const [lon, lat] = map.getCenter();
+        const z = map.getZoom();
+        setParams({lon, lat, z});
+        setMapSettings({center: [lon, lat], zoom: z});
+    }, [setParams, setMapSettings]);
 
     return (
         <YMap
-            state={{...settings, zoom: settings.zoom || defaultSettings.zoom}}
+            state={mapSettings}
             options={{
                 suppressMapOpenBlock: true,
                 copyrightLogoVisible: false,
@@ -53,18 +63,9 @@ export const Map: FC<Props> = ({defaultSettings, className}) => {
                 copyrightUaVisible: false,
             }}
             className={className}
+            onBoundsChange={handleBoundsChange}
         >
-            <GeolocationControl
-                options={{
-                    position: {
-                        bottom: '1rem',
-                        right: '3rem',
-                    },
-                    //@ts-ignore
-                    noPlacemark: true,
-                }}
-                onClick={handleCenter}
-            />
+            <CenterControl/>
             <ZoomControl options={{
                 position: {
                     bottom: '1rem',
@@ -72,13 +73,28 @@ export const Map: FC<Props> = ({defaultSettings, className}) => {
                 },
                 size: 'small',
             }}
-
             />
+            {
+                places.map(p => (
+                    <Placemark
+                        key={p.id}
+                        modules={['geoObject.addon.balloon']}
+                        defaultGeometry={[p.lat, p.lon]}
+                        options={{
+                            iconLayout: 'default#image',
+                            iconImageHref: icon,
+                            iconImageSize: [20, 20],
+                            iconImageOffset: [-10, -10],
+                        }}
+                        onClick={() => alert(p.id + ' | ' + p.tags['name:ru'] ?? p.tags.name ?? 'Нет названия')}
+                    />
+                ))
+            }
 
             {
-                latitude && longitude && <>
-                    <PersonMarker geometry={[latitude, longitude]} heading={rotation || 0}/>
-                    <PersonInaccuracy geometry={[latitude, longitude]} accuracy={accuracy || 1}/>
+                <>
+                    <PersonMarker/>
+                    <PersonInaccuracy/>
                 </>
             }
         </YMap>
