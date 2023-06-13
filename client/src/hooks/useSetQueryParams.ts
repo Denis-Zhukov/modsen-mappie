@@ -6,13 +6,10 @@ export const useSetQueryParams = () => {
 
     return (params: { [key: string]: string }) => {
         const searchParams = new URLSearchParams(location.search);
-
         Object.entries(params).forEach(([key, value]) => {
             searchParams.set(key, value);
         });
-
         const newSearch = searchParams.toString();
-
-        navigate({search: newSearch});
+        navigate({search: newSearch}, {replace: true});
     };
 };

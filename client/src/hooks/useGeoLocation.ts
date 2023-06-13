@@ -66,10 +66,8 @@ export const useGeoLocation = (retryTime?: number): GeoLocation => {
 
         return () => {
             isMounted = false;
-            if (watchId !== null)
-                navigator.geolocation.clearWatch(watchId);
-            if (retry !== null)
-                clearTimeout(retry);
+            if (watchId !== null) navigator.geolocation.clearWatch(watchId);
+            if (retry !== null) clearTimeout(retry);
         };
     }, [retryTime]);
 

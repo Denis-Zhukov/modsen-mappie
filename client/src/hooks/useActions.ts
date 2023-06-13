@@ -1,7 +1,7 @@
 import {bindActionCreators} from '@reduxjs/toolkit';
 import {useMemo} from 'react';
-import {positionActions} from '../store/slices/position.slice';
-import {mapActions} from '../store/slices/map.slice';
+import {positionActions} from '@store/slices/position.slice';
+import {mapActions} from '@store/slices/map.slice';
 import {useAppDispatch} from './redux-toolkit';
 
 
