@@ -1,17 +1,12 @@
-.map {
-  width: 100%;
-  height: 100%;
-}
-
 .container {
-  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
   width: 100vw;
   height: 100vh;
 }
 
-.controls {
+.map {
+  flex: 1 1 auto;
+  width: 100%;
   height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
 }
