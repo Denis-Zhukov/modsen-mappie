@@ -9,11 +9,11 @@ export const Main = () => {
     const {setMapSettings} = useActions();
     const [searchParams] = useSearchParams();
     useEffect(() => {
-        const lon = +searchParams.get('lon')! || 0;
         const lat = +searchParams.get('lat')! || 0;
+        const lon = +searchParams.get('lon')! || 0;
         const zoom = +searchParams.get('z')! || 5;
 
-        setMapSettings({center: [lon, lat], zoom});
+        setMapSettings({center: [lat, lon], zoom});
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

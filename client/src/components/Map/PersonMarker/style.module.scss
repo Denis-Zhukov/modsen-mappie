@@ -1,3 +1,5 @@
+@import "src/styles/variables";
+
 .marker {
   width: 32px;
   height: 32px;
@@ -9,11 +11,10 @@
   top: -16px
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: $sm) {
   .marker {
     width: 18px;
     height: 18px;
-
     left: -9px;
     top: -9px
   }

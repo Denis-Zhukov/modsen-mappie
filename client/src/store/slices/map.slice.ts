@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface State {
-    center: [number, number],
+    center: [number, number]
     zoom: number,
 }
 

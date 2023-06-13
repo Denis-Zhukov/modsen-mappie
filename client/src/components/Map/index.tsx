@@ -19,10 +19,10 @@ export const Map: FC<Props> = ({className}) => {
 
     const handleBoundsChange = useCallback((event: ymaps.IEvent) => {
         const map = event.get('target');
-        const [lon, lat] = map.getCenter();
+        const [lat, lon] = map.getCenter();
         const z = map.getZoom();
         setParams({lon, lat, z});
-        setMapSettings({center: [lon, lat], zoom: z});
+        setMapSettings({center: [lat, lon], zoom: z});
     }, [setParams, setMapSettings]);
 
     return (

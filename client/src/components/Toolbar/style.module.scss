@@ -1,13 +1,13 @@
+@import "src/styles/variables";
+
 .wrapper {
   height: 100%;
-  padding: 0;
-  margin: 0;
 }
 
 .logoBtn {
   width: 22px;
   height: 22px;
-  fill: #FFFFFF;
+  fill: $white;
 }
 
 .toolbar {
@@ -22,51 +22,51 @@
   }
 
   .btn {
-    background: #FFFFFF;
+    background: $white;
     width: 60px;
     height: 60px;
     border-radius: 6px;
-    border: 3px solid rgba(0, 0, 0, 0.2);
+    border: 3px solid $gray-light-light;
   }
 
   .searchBtn > svg {
-    fill: #5E7BC7;
+    fill: $blue;
   }
 
   .searchActive {
     border: none;
-    background: #5E7BC7;
+    background: $blue;
 
     &:hover {
-      background: darken(#5E7BC7, 5);
+      background: darken($blue, 5);
     }
 
     > svg {
-      fill: #FFFFFF;
+      fill: $white;
     }
   }
 
   .bookmarkBtn > svg {
-    fill: #C75E5E;
+    fill: $red;
   }
 
   .bookmarkActive {
     border: none;
-    background: #C75E5E;
+    background: $red;
 
     &:hover {
-      background: darken(#C75E5E, 5);
+      background: darken($red, 5);
     }
 
     > svg {
-      fill: #FFFFFF;
+      fill: $white;
     }
   }
 
   .avatar {
     width: 48px;
     height: 48px;
-    border: 3px solid rgba(0, 0, 0, 0.2);
+    border: 3px solid $gray-light-light;
     border-radius: 50%;
   }
 }
