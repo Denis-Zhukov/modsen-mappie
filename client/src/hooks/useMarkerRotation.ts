@@ -9,7 +9,7 @@ export const useMarkerRotation = () => {
             setMarkerRotation(rotation);
         };
 
-        window.addEventListener('deviceorientation', handleOrientation);
+        window.addEventListener('deviceorientation', handleOrientation, true);
 
         return () => {
             window.removeEventListener('deviceorientation', handleOrientation);

@@ -1,11 +1,11 @@
-import React, {FC, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Placemark, useYMaps} from '@pbe/react-yandex-maps';
 import {useMarkerRotation, useGeoLocation, useActions} from '@hooks';
 import marker from '@images/person.svg';
 import s from './style.module.scss';
 
 
-export const PersonMarker: FC = () => {
+export const PersonMarker = () => {
     const {latitude, longitude, accuracy, error} = useGeoLocation(5000);
     const {setPersonPosition} = useActions();
 
@@ -18,11 +18,9 @@ export const PersonMarker: FC = () => {
     }, [latitude, longitude, accuracy, setPersonPosition]);
 
     const heading = useMarkerRotation();
-
     const ymaps = useYMaps(['templateLayoutFactory']);
 
-    if (error) return null;
-    if (!ymaps?.templateLayoutFactory) return null;
+    if (error || !ymaps?.templateLayoutFactory) return null;
 
     const template = ymaps.templateLayoutFactory.createClass(`
         <img 

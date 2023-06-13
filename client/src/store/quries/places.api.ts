@@ -1,6 +1,7 @@
 import {api} from './api';
 
-const authApi = api.injectEndpoints({
+
+const placesApi = api.injectEndpoints({
     endpoints: builder => ({
         getPlaces: builder.query({
             query: ({geometry, radius}: { geometry: [number, number], radius: number }) => {
@@ -51,4 +52,4 @@ const authApi = api.injectEndpoints({
 });
 export const {
     useGetPlacesQuery,
-} = authApi;
+} = placesApi;

@@ -4,7 +4,7 @@ export const useSetQueryParams = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const setQueryParams = (params: { [key: string]: string }) => {
+    return (params: { [key: string]: string }) => {
         const searchParams = new URLSearchParams(location.search);
 
         Object.entries(params).forEach(([key, value]) => {
@@ -15,6 +15,4 @@ export const useSetQueryParams = () => {
 
         navigate({search: newSearch});
     };
-
-    return setQueryParams;
 };
