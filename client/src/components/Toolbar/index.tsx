@@ -1,11 +1,17 @@
+import {useActions, useAppSelector} from '@hooks';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import SearchIcon from '@mui/icons-material/Search';
-import {Box, Paper, Stack, IconButton} from '@mui/material';
+import {Box, IconButton, Paper, Stack} from '@mui/material';
+import {SideMenuEnum} from '@store/slices/application.slice';
 
 import s from './style.module.scss';
 
 
 export const Toolbar = () => {
+    const {setSideMenu} = useActions();
+    const searchActive = useAppSelector(state => state.application.search);
+    const bookmarksActive = useAppSelector(state => state.application.bookmarks);
+
     return (
         <Paper className={s.wrapper}>
             <Stack direction="column" className={s.toolbar} alignItems="center" spacing={2}>
@@ -16,10 +22,12 @@ export const Toolbar = () => {
                     className={s.logo}
                 />
 
-                <IconButton className={`${s.searchBtn} ${s.btn}`}>
+                <IconButton className={`${s.searchBtn} ${s.btn}`}
+                    onClick={() => setSideMenu({sideMenu: SideMenuEnum.search, value: !searchActive})}>
                     <SearchIcon/>
                 </IconButton>
-                <IconButton className={`${s.bookmarkBtn} ${s.btn}`}>
+                <IconButton className={`${s.bookmarkBtn} ${s.btn}`}
+                    onClick={() => setSideMenu({sideMenu: SideMenuEnum.bookmarks, value: !bookmarksActive})}>
                     <BookmarkIcon/>
                 </IconButton>
 

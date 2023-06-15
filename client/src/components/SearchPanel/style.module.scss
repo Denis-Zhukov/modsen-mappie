@@ -1,8 +1,10 @@
 @import "src/styles/variables";
 
 .searchPanel {
-  width: max(200px);
+  max-height: 800px;
+
   padding: 25px;
+  overflow-y: auto;
 }
 
 .categories {

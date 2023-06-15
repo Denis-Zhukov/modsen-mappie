@@ -4,7 +4,7 @@ import {Map} from '@components/Map';
 import {SearchPanel} from '@components/SearchPanel';
 import {SidePanel} from '@components/SidePanel';
 import {Toolbar} from '@components/Toolbar';
-import {useActions} from '@hooks';
+import {useActions, useAppSelector} from '@hooks';
 import {useSearchParams} from 'react-router-dom';
 
 import s from './style.module.scss';
@@ -22,13 +22,13 @@ export const Main = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const [active, setActive] = useState(true);
+    const [search, bookmarks] = useAppSelector(state => [state.application.search, state.application.bookmarks]);
 
     return (
         <div className={s.container}>
             <div className={s.controls}>
                 <Toolbar/>
-                {active && <SidePanel><SearchPanel/></SidePanel>}
+                {search && <SidePanel><SearchPanel/></SidePanel>}
             </div>
             <Map className={s.map}/>
         </div>
