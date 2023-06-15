@@ -1,6 +1,7 @@
-import {Circle} from '@pbe/react-yandex-maps';
 import React, {FC} from 'react';
+
 import {useGeoLocation} from '@hooks';
+import {Circle} from '@pbe/react-yandex-maps';
 
 export const PersonInaccuracy: FC = () => {
     const {latitude, longitude, accuracy} = useGeoLocation(5000);

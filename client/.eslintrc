@@ -1,7 +1,9 @@
 {
   "extends": [
-    "react-app",
-    "react-app/jest"
+    "react-app"
+  ],
+  "plugins": [
+    "import"
   ],
   "rules": {
     "no-console": "warn",
@@ -29,6 +31,11 @@
     "import/order": [
       "error",
       {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always",
         "groups": [
           "builtin",
           "external",
@@ -38,6 +45,16 @@
           "index",
           "object",
           "type"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "builtin"
         ]
       }
     ]

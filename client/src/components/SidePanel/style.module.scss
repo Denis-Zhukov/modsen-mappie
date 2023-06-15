@@ -1,0 +1,8 @@
+.sidePanel {
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(100%);
+  z-index: 999;
+}

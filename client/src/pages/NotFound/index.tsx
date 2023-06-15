@@ -1,5 +1,6 @@
 import {Typography} from '@mui/material';
 import {NavLink} from 'react-router-dom';
+
 import s from './style.module.scss';
 
 export const NotFound = () => {

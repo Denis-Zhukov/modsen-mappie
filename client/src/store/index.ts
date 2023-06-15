@@ -1,11 +1,12 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
+
 import {api} from './quries/api';
 import mapReducer from './slices/map.slice';
-import positionReducer from './slices/position.slice';
+import personReducer from './slices/person.slice';
 
 const reducers = combineReducers({
     map: mapReducer,
-    position: positionReducer,
+    person: personReducer,
     [api.reducerPath]: api.reducer,
 });
 

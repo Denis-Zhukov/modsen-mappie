@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
-import {Placemark, useYMaps} from '@pbe/react-yandex-maps';
+
 import {useMarkerRotation, useGeoLocation, useActions} from '@hooks';
 import marker from '@images/person.svg';
+import {Placemark, useYMaps} from '@pbe/react-yandex-maps';
+
 import s from './style.module.scss';
 
 

@@ -1,12 +1,14 @@
-import {bindActionCreators} from '@reduxjs/toolkit';
 import {useMemo} from 'react';
-import {positionActions} from '@store/slices/position.slice';
+
+import {bindActionCreators} from '@reduxjs/toolkit';
 import {mapActions} from '@store/slices/map.slice';
+import {personActions} from '@store/slices/person.slice';
+
 import {useAppDispatch} from './redux-toolkit';
 
 
 const actions = {
-    ...positionActions,
+    ...personActions,
     ...mapActions,
 };
 

@@ -1,6 +1,10 @@
-import {Box, Paper, Stack, IconButton} from '@mui/material';
+import {useCallback} from 'react';
+
+import {useActions} from '@hooks';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import SearchIcon from '@mui/icons-material/Search';
+import {Box, Paper, Stack, IconButton} from '@mui/material';
+
 import s from './style.module.scss';
 
 

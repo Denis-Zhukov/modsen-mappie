@@ -1,14 +1,15 @@
-import {GeolocationControl} from '@pbe/react-yandex-maps';
-import {useActions, useAppSelector} from '@hooks';
 import {useCallback} from 'react';
+
+import {useActions, useAppSelector} from '@hooks';
+import {GeolocationControl} from '@pbe/react-yandex-maps';
 
 export const CenterControl = () => {
     const [latitude, longitude] = useAppSelector(state => (
-        [state.position.latitude, state.position.longitude]));
+        [state.person.latitude, state.person.longitude]));
     const {setMapPosition} = useActions();
 
     const handleClick = useCallback(() => {
-        setMapPosition({center: [latitude, longitude]});
+        if (latitude && longitude) setMapPosition({center: [latitude, longitude]});
     }, [longitude, latitude, setMapPosition]);
 
     return <GeolocationControl

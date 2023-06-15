@@ -48,7 +48,6 @@ export const useGeoLocation = (retryTime?: number): GeoLocation => {
                 watchId = navigator.geolocation.watchPosition(
                     handleSuccess,
                     handleError,
-                    //FIXME: зарядки на телефоне не хватает, вернуть true
                     {enableHighAccuracy: true, maximumAge: 0},
                 );
             } else {

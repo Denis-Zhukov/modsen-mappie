@@ -1,10 +1,12 @@
 import React, {FC, useCallback} from 'react';
-import {Map as YMap, ZoomControl} from '@pbe/react-yandex-maps';
-import {PersonMarker} from '@components/Map/PersonMarker';
-import {PersonInaccuracy} from '@components/Map/PersonInaccuracy';
-import {CenterControl} from '@components/Map/CenterControl';
+
+import {CenterControl} from '@components/CenterControl';
+import {PersonInaccuracy} from '@components/PersonInaccuracy';
+import {PersonMarker} from '@components/PersonMarker';
+import {PersonRadius} from '@components/PersonRadius';
+import {Places} from '@components/Places';
 import {useActions, useAppSelector, useSetQueryParams} from '@hooks';
-import {Places} from '@components/Map/Places';
+import {Map as YMap, ZoomControl} from '@pbe/react-yandex-maps';
 
 
 interface Props {
@@ -21,7 +23,7 @@ export const Map: FC<Props> = ({className}) => {
         const map = event.get('target');
         const [lat, lon] = map.getCenter();
         const z = map.getZoom();
-        setParams({lon, lat, z});
+        setParams({lat, lon, z});
         setMapSettings({center: [lat, lon], zoom: z});
     }, [setParams, setMapSettings]);
 
@@ -33,6 +35,7 @@ export const Map: FC<Props> = ({className}) => {
                 copyrightLogoVisible: false,
                 copyrightProvidersVisible: false,
                 copyrightUaVisible: false,
+
             }}
             className={className}
             onBoundsChange={handleBoundsChange}
@@ -49,6 +52,7 @@ export const Map: FC<Props> = ({className}) => {
             <Places/>
             <PersonMarker/>
             <PersonInaccuracy/>
+            <PersonRadius/>
         </YMap>
     );
 };
