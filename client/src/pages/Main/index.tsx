@@ -22,10 +22,10 @@ export const Main = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState(true);
 
     return (
-        <div className={s.container} onClick={(()=>setActive(!active))}>
+        <div className={s.container}>
             <div className={s.controls}>
                 <Toolbar/>
                 {active && <SidePanel><SearchPanel/></SidePanel>}

@@ -1,6 +1,3 @@
-import {useCallback} from 'react';
-
-import {useActions} from '@hooks';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import SearchIcon from '@mui/icons-material/Search';
 import {Box, Paper, Stack, IconButton} from '@mui/material';
@@ -19,7 +16,7 @@ export const Toolbar = () => {
                     className={s.logo}
                 />
 
-                <IconButton className={`${s.searchBtn} ${s.btn} ${s.searchActive}`}>
+                <IconButton className={`${s.searchBtn} ${s.btn}`}>
                     <SearchIcon/>
                 </IconButton>
                 <IconButton className={`${s.bookmarkBtn} ${s.btn}`}>

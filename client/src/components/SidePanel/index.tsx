@@ -10,4 +10,4 @@ interface Props {
 export const SidePanel: React.FC<Props> = ({children}) => {
 
     return <div className={s.sidePanel}>{children}</div>;
-}
+};
