@@ -19,7 +19,7 @@ export const filtersByCategory: Readonly<IFilterByCategory> = {
   nature: {
     and: [{ field: 'natural', values: [] }],
     or: [],
-    exclude: [{ field: 'natural', values: ['tree', 'shrub'] }]
+    exclude: [{ field: 'natural', values: ['tree', 'shrub', 'spring'] }]
   },
   culture: {
     and: [],
