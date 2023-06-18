@@ -13,7 +13,7 @@ export class PlacesService {
         ...or.map(condition => `["${condition.field}"~"${condition.values.join('|')}"]`),
         ...exclude.map(condition => condition.values.map(v => `["${condition.field}"!="${v}"]`).join(''))
       ].join('');
-      return `node(around:${radius},${latitude},${longitude})["name"]${filters};`;
+      return `node(around:${radius},${latitude},${longitude})${filters};`;
     }).join('')});
     out center;`;
     const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(queryString)}`;

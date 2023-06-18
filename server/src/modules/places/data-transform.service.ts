@@ -39,11 +39,13 @@ export class DataTransformService {
   }
 
   public transform(places: OverpassNodeDto[], categories: string[]) {
-    return places.map(p => ({
-      type: this.determinePlace(p, categories) || 'unknown',
-      id: p.id,
-      position: [p.lat, p.lon],
-      tags: p.tags
-    }));
+    return places
+      .filter(p => !!p.tags.name)
+      .map(p => ({
+        type: this.determinePlace(p, categories) || 'unknown',
+        id: p.id,
+        position: [p.lat, p.lon],
+        tags: p.tags
+      }));
   }
 }
