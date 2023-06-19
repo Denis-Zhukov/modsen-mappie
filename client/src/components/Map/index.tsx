@@ -1,31 +1,38 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 
-import {CenterControl} from '@components/CenterControl';
-import {PersonInaccuracy} from '@components/PersonInaccuracy';
-import {PersonMarker} from '@components/PersonMarker';
-import {PersonRadius} from '@components/PersonRadius';
-import {Places} from '@components/Places';
-import {useActions, useAppSelector, useSetQueryParams} from '@hooks';
-import {Map as YMap, ZoomControl} from '@pbe/react-yandex-maps';
+import {MapBody} from '@components/MapBody';
+import {useActions, useAppSelector} from '@hooks';
+import {Map as YMap} from '@pbe/react-yandex-maps';
+import {selectMapSettings} from '@store/selectors/geolocation';
+import {useSearchParams} from 'react-router-dom';
 
 
 interface Props {
     className?: string;
 }
 
-export const Map: FC<Props> = ({className}) => {
-    const setParams = useSetQueryParams();
 
-    const mapSettings = useAppSelector(state => state.map);
+export const Map: FC<Props> = (props) => {
     const {setMapSettings} = useActions();
+    const mapSettings = useAppSelector(selectMapSettings);
+    const [, setSearchParams] = useSearchParams();
+
+    useEffect(() => {
+        const timer = setTimeout(
+            () => setSearchParams({
+                lat: '' + mapSettings.center[0],
+                lon: '' + mapSettings.center[1],
+                zoom: '' + mapSettings.zoom,
+            }, {replace: true}), 750);
+        return () => clearTimeout(timer);
+    }, [mapSettings, setSearchParams]);
 
     const handleBoundsChange = useCallback((event: ymaps.IEvent) => {
         const map = event.get('target');
         const [lat, lon] = map.getCenter();
-        const z = map.getZoom();
-        setParams({lat, lon, z});
-        setMapSettings({center: [lat, lon], zoom: z});
-    }, [setParams, setMapSettings]);
+        const zoom = map.getZoom();
+        setMapSettings({center: [lat, lon], zoom});
+    }, [setMapSettings]);
 
     return (
         <YMap
@@ -35,24 +42,11 @@ export const Map: FC<Props> = ({className}) => {
                 copyrightLogoVisible: false,
                 copyrightProvidersVisible: false,
                 copyrightUaVisible: false,
-
             }}
-            className={className}
+            className={props.className}
             onBoundsChange={handleBoundsChange}
         >
-            <CenterControl/>
-            <ZoomControl options={{
-                position: {
-                    bottom: '1rem',
-                    right: '1rem',
-                },
-                size: 'small',
-            }}
-            />
-            <Places/>
-            <PersonMarker/>
-            <PersonInaccuracy/>
-            <PersonRadius/>
+            <MapBody/>
         </YMap>
     );
 };

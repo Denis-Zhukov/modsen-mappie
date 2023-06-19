@@ -22,6 +22,12 @@
       ],
       "@styles/*": [
         "./styles/*"
+      ],
+      "@constants/*": [
+        "./constants/*"
+      ],
+      "@typing/*": [
+        "./typing/*"
       ]
     }
   }

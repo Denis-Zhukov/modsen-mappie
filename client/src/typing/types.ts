@@ -1,0 +1,3 @@
+export type TToolbarItem = 'search' | 'bookmarks';
+export type TPlaceKind = 'nature' | 'culture' | 'historic' | 'religion' | 'architecture'
+    | 'industrial' | 'avocation' | 'sport' | 'adult' | 'food' | 'cafe' | 'bank' | 'sleep' | 'unknown';

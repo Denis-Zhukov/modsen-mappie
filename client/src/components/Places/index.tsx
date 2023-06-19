@@ -1,26 +1,16 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import {Place} from '@components/Place';
-import {useAppSelector} from '@hooks';
-import {useGetPlacesQuery} from '@store/quries/places.api';
 
-export const Places = () => {
-    const geometry = useAppSelector(state =>
-        [state.person.latitude, state.person.longitude]) as [number | null, number | null];
-    const radius = useAppSelector(state => state.person.radius);
+import type {IPlace} from '@typing/interfaces';
 
-    const {data, isSuccess} = useGetPlacesQuery({geometry, radius});
+interface Props {
+    items: IPlace[]
+}
 
-    if (isSuccess)
-        return <>
-            {
-                data.map((p: any) => {
-                    return (
-                        <Place key={p.id} geometry={p.position} tags={p.tags} type={p.type}/>
-                    );
-                })
-            }
-        </>;
-
-    return null;
-};
+export const Places: FC<Props> = React.memo(({items}) => (<>
+    {items.map(p => <Place key={p.id} geometry={p.position} tags={p.tags} type={p.type}/>)}
+</>), ({items: prevPlaces}, {items: nextPlaces}) => {
+    return nextPlaces.length === prevPlaces.length &&
+        nextPlaces.every(({id: nextId}) => prevPlaces.find(({id: prevId}) => prevId === nextId));
+});

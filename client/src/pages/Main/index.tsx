@@ -1,37 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
+import {Controls} from '@components/Controls';
 import {Map} from '@components/Map';
-import {SearchPanel} from '@components/SearchPanel';
-import {SidePanel} from '@components/SidePanel';
-import {Toolbar} from '@components/Toolbar';
-import {useActions, useAppSelector} from '@hooks';
-import {useSearchParams} from 'react-router-dom';
+import {useActions} from '@hooks';
 
 import s from './style.module.scss';
 
 
 export const Main = () => {
     const {setMapSettings} = useActions();
-    const [searchParams] = useSearchParams();
     useEffect(() => {
-        const lat = +searchParams.get('lat')! || 0;
-        const lon = +searchParams.get('lon')! || 0;
-        const zoom = +searchParams.get('z')! || 5;
-
+        const params = new URLSearchParams(window.location.search);
+        const lat = +params.get('lat')! || 0;
+        const lon = +params.get('lon')! || 0;
+        const zoom = +params.get('zoom')! || 5;
         setMapSettings({center: [lat, lon], zoom});
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const [search, bookmarks] = useAppSelector(state => [state.application.search, state.application.bookmarks]);
+    }, [setMapSettings]);
 
     return (
         <div className={s.container}>
-            <div className={s.controls}>
-                <Toolbar/>
-                {search && <SidePanel><SearchPanel/></SidePanel>}
-            </div>
+            <Controls/>
             <Map className={s.map}/>
         </div>
     );
 };
+
 

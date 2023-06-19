@@ -12,7 +12,6 @@ import './styles/global.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-console.log('BACK:', process.env.REACT_APP_BACK_END);
 root.render(
     <Provider store={store}>
         <YMaps query={{apikey: process.env.REACT_APP_YANDEX_API_KEY}}>

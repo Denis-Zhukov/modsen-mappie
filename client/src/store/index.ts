@@ -1,13 +1,11 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
 import {api} from './quries/api';
-import applicationReducer from './slices/application.slice';
-import mapReducer from './slices/map.slice';
-import personReducer from './slices/person.slice';
+import applicationReducer from './slices/application';
+import geolocationReducer from './slices/geolocation';
 
 const reducers = combineReducers({
-    map: mapReducer,
-    person: personReducer,
+    geolocation: geolocationReducer,
     application: applicationReducer,
     [api.reducerPath]: api.reducer,
 });

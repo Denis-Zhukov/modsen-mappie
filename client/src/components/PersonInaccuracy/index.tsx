@@ -1,13 +1,14 @@
-import React, {FC} from 'react';
+import React from 'react';
 
-import {useGeoLocation} from '@hooks';
+import {useAppSelector} from '@hooks';
 import {Circle} from '@pbe/react-yandex-maps';
+import {selectPersonAndGeoInaccuracy} from '@store/selectors/geolocation';
 
-export const PersonInaccuracy: FC = () => {
-    const {latitude, longitude, accuracy} = useGeoLocation(5000);
+export const PersonInaccuracy = () => {
+    const {coords, inaccuracy} = useAppSelector(selectPersonAndGeoInaccuracy);
 
     return <Circle
-        geometry={[[latitude, longitude], accuracy]}
+        geometry={[coords, inaccuracy]}
         options={{
             fillColor: '#5e7bc7',
             fillOpacity: 0.2,

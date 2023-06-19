@@ -8,21 +8,20 @@ import s from './style.module.scss';
 
 
 export const PersonMarker = () => {
-    const {latitude, longitude, accuracy, error} = useGeoLocation(5000);
+    const {latitude, longitude, accuracy,error} = useGeoLocation(5000);
     const {setPersonPosition} = useActions();
 
     useEffect(() => {
         setPersonPosition({
-            latitude: latitude!,
-            longitude: longitude!,
-            accuracy: accuracy!,
+            personCoords: [latitude, longitude] as [number, number] | [null, null],
+            geoAccuracy: accuracy!,
         });
     }, [latitude, longitude, accuracy, setPersonPosition]);
 
     const heading = useMarkerRotation();
     const ymaps = useYMaps(['templateLayoutFactory']);
 
-    if (error || !ymaps?.templateLayoutFactory) return null;
+    if (!ymaps?.templateLayoutFactory || error) return null;
 
     const template = ymaps.templateLayoutFactory.createClass(`
         <img 

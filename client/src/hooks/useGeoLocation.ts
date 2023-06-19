@@ -48,7 +48,7 @@ export const useGeoLocation = (retryTime?: number): GeoLocation => {
                 watchId = navigator.geolocation.watchPosition(
                     handleSuccess,
                     handleError,
-                    {enableHighAccuracy: true, maximumAge: 0},
+                    {enableHighAccuracy: true, maximumAge: 1000},
                 );
             } else {
                 setGeoLocation({

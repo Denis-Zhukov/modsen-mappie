@@ -2,10 +2,13 @@ import React from 'react';
 
 import {useAppSelector} from '@hooks';
 import {Circle} from '@pbe/react-yandex-maps';
+import {selectPersonCoords, selectRadius} from '@store/selectors/geolocation';
 
 export const PersonRadius = () => {
-    const [latitude, longitude] = useAppSelector(state => [state.person.latitude, state.person.longitude]);
-    const radius = useAppSelector(state => state.person.radius);
+    const [latitude, longitude] = useAppSelector(selectPersonCoords);
+    const radius = useAppSelector(selectRadius);
+
+    if (!latitude || !longitude) return null;
 
     return <Circle
         geometry={[[latitude, longitude], radius]}
