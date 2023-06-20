@@ -1,18 +1,24 @@
 import React, {FC} from 'react';
 
 import {icons} from '@constants/icons';
+import {useActions} from '@hooks';
 import {Placemark} from '@pbe/react-yandex-maps';
 
 import type {TPlaceKind} from '@typing/types';
 
 
 interface Props {
+    id: number,
     type: TPlaceKind,
     geometry: [number, number],
-    tags: { [key: string]: string },
 }
 
-export const Place: FC<Props> = React.memo(({geometry, tags, type}) => {
+export const Place: FC<Props> = React.memo(({id, geometry, type}) => {
+    const {showPlaceInfo} = useActions();
+    const handleClick = () => {
+        showPlaceInfo({id});
+    };
+
     return (
         <Placemark
             options={{
@@ -22,7 +28,9 @@ export const Place: FC<Props> = React.memo(({geometry, tags, type}) => {
                 iconImageOffset: [-8, -8],
             }}
             geometry={geometry}
-            onClick={() => alert(JSON.stringify({...tags, type}, null, 2))}
+            onClick={handleClick}
         />
     );
-}, () => true);
+}, ({geometry: prevGeometry}, {geometry: nextGeometry}) => {
+    return prevGeometry[0] === nextGeometry[0] && prevGeometry[1] === nextGeometry[1];
+});

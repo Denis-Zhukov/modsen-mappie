@@ -1,6 +1,6 @@
-import {urls} from '@constants/urls';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import axios from 'axios';
+
+import {PlacesService} from '../../../api/PlacesService';
 
 import type {RootState} from '@store/index';
 import type {IPlace} from '@typing/interfaces';
@@ -9,11 +9,11 @@ import type {AxiosResponse} from 'axios';
 
 export const getPlacesThunk = createAsyncThunk<any, void, { state: RootState }>(
     'geolocation/get-places',
-    async (a, thunkApi): Promise<IPlace[]> => {
+    async (a, thunkApi): Promise<Omit<IPlace, 'tags'>[]> => {
         const {personCoords: [lat, lon], radius} = thunkApi.getState().geolocation;
         if (!lat || !lon) return [];
 
-        const response: AxiosResponse<IPlace[]> = await axios.get(urls.getUrlGetPlaces(lat, lon, radius));
+        const response: AxiosResponse<Omit<IPlace, 'tags'>[]> = await PlacesService.getPlaces(lat, lon, radius, thunkApi.getState().application.filter);
         return response.data;
-    },
+    }, {dispatchConditionRejection: true},
 );

@@ -1,4 +1,4 @@
-import {RootState} from '@store/index';
+import type {RootState} from '@store/index';
 
 export const selectActiveToolbarItem = (state: RootState) => state.application.activeMenuItem;
 export const selectFilter = (state: RootState) => state.application.filter;

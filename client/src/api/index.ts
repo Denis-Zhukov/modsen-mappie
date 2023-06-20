@@ -21,6 +21,7 @@ $api.interceptors.response.use((config) => config, async (error) => {
             localStorage.setItem('access_token', response.data.access_token);
             return $api.request(request);
         } catch (e) {
+            localStorage.removeItem('access_token');
             console.log('Unauthorized');
         }
     }
