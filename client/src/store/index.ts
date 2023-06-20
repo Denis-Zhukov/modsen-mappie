@@ -1,18 +1,18 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
-import {api} from './quries/api';
 import applicationReducer from './slices/application';
+import bookmarksReducer from './slices/bookmarks';
 import geolocationReducer from './slices/geolocation';
 
 const reducers = combineReducers({
     geolocation: geolocationReducer,
     application: applicationReducer,
-    [api.reducerPath]: api.reducer,
+    bookmarks: bookmarksReducer,
 });
 
 export const store = configureStore({
     reducer: reducers,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export type RootState = ReturnType<typeof store.getState>

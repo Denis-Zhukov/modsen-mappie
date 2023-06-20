@@ -1,10 +1,11 @@
 import {urls} from '@constants/urls';
+import axios from 'axios';
 
 import {$api} from './index';
 
 export class AuthService {
     public static async login(credentials: string) {
-        const response = await $api.post(urls.login, {credentials}, {withCredentials: true});
+        const response = await axios.post(urls.login, {credentials}, {withCredentials: true});
         return response.data;
     }
 

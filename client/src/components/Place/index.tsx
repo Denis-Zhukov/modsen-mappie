@@ -15,6 +15,7 @@ interface Props {
 
 export const Place: FC<Props> = React.memo(({id, geometry, type}) => {
     const {showPlaceInfo} = useActions();
+
     const handleClick = () => {
         showPlaceInfo({id});
     };

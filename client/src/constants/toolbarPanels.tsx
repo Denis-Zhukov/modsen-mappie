@@ -1,3 +1,4 @@
+import {BookmarksPanel} from '@components/BookmarksPanel';
 import {PlaceInfo} from '@components/PlaceInfo';
 import {SearchPanel} from '@components/SearchPanel';
 import {ReactJSXElement} from '@emotion/react/types/jsx-namespace';
@@ -7,6 +8,6 @@ type TPanel = Record<TToolbarItem, string | ReactJSXElement | ReactJSXElement[]>
 
 export const toolbarPanels: TPanel = {
     'search': <SearchPanel/>,
-    'bookmarks': '123',
+    'bookmarks': <BookmarksPanel/>,
     'info': <PlaceInfo/>,
 };

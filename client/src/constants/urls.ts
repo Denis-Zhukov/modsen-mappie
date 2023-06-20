@@ -10,4 +10,7 @@ export const urls = {
     checkAuth: BASE_URL + '/check-auth',
     refresh: BASE_URL + '/refresh',
     logout: BASE_URL + '/logout',
+
+    getFavoritePlaces: BASE_URL + '/favorite-places',
+    toggleFavoritePlace: BASE_URL + '/toggle-favorite-place',
 };

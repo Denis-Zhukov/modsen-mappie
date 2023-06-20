@@ -12,17 +12,18 @@ $api.interceptors.request.use((config) => {
     return config;
 });
 
-$api.interceptors.response.use((config) => config, async (error) => {
-    const request = error.config;
-    if (error.response?.status === 401 && error.config && !error.config._isRertry) {
-        request._isRetry = true;
+$api.interceptors.response.use((config) => {
+    return config;
+}, async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && error.config && !error.config._isRetry) {
+        originalRequest._isRetry = true;
         try {
             const response = await axios.post(urls.refresh, {}, {withCredentials: true});
-            localStorage.setItem('access_token', response.data.access_token);
-            return $api.request(request);
+            localStorage.setItem('access_token', response.data.access);
+            return $api.request(originalRequest);
         } catch (e) {
-            localStorage.removeItem('access_token');
-            console.log('Unauthorized');
+            console.log('Unauth');
         }
     }
     throw error;
