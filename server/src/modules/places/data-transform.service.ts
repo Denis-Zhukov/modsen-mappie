@@ -36,13 +36,24 @@ export class DataTransformService {
       if (this.placeBelongCategory(place, fieldCategory))
         return category;
     }
+    return 'unknown';
   }
 
-  public transform(places: OverpassNodeDto[], categories: string[]) {
+  public transformWithoutDesc(places: OverpassNodeDto[], categories: string[]) {
     return places
       .filter(p => !!p.tags.name)
       .map(p => ({
-        type: this.determinePlace(p, categories) || 'unknown',
+        type: this.determinePlace(p, categories),
+        id: p.id,
+        position: [p.lat, p.lon]
+      }));
+  }
+
+  public transformWithDesc(places: OverpassNodeDto[], categories: string[]) {
+    return places
+      .filter(p => !!p.tags.name)
+      .map(p => ({
+        type: this.determinePlace(p, categories),
         id: p.id,
         position: [p.lat, p.lon],
         tags: p.tags

@@ -7,6 +7,7 @@ export class PlacesService {
   public async getPlacesByCategories(latitude: number, longitude: number, radius: number, categories: string[]) {
     const queryString = `[out:json];
     (${categories.map(category => {
+      if (!filtersByCategory[category]) return '';
       const { and, or, exclude } = filtersByCategory[category];
       const filters = [
         ...and.map(condition => condition.values.length ? condition.values.map(v => `["${condition.field}"="${v}"]`).join('') : `["${condition.field}"]`),
@@ -16,6 +17,19 @@ export class PlacesService {
       return `node(around:${radius},${latitude},${longitude})${filters};`;
     }).join('')});
     out center;`;
+    const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(queryString)}`;
+    const response = await fetch(url);
+    const res = await response.json();
+    return res.elements as OverpassNodeDto[];
+  }
+
+  public async getPlaceById(id: number) {
+    const queryString = `[out:json];
+    (
+      node(${id});
+    );
+     out body;`;
+
     const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(queryString)}`;
     const response = await fetch(url);
     const res = await response.json();
