@@ -4,6 +4,7 @@ import { AuthModule } from '../auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AuthModel } from '../auth/auth.model';
+import * as pg from 'pg';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AuthModel } from '../auth/auth.model';
     AuthModule,
     SequelizeModule.forRoot({
       dialect: 'postgres',
+      dialectModule: pg,
       uri: process.env.POSTGRES_DB + '?sslmode=require',
       models: [AuthModel],
 
