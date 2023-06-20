@@ -1,3 +1,4 @@
+import {urls} from '@constants/urls';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -12,8 +13,7 @@ export const getPlacesThunk = createAsyncThunk<any, void, { state: RootState }>(
         const {personCoords: [lat, lon], radius} = thunkApi.getState().geolocation;
         if (!lat || !lon) return [];
 
-        const url = `${process.env.REACT_APP_BACK_END}/all-places?latitude=${lat}&longitude=${lon}&radius=${radius}`;
-        const response: AxiosResponse<IPlace[]> = await axios.get(url);
+        const response: AxiosResponse<IPlace[]> = await axios.get(urls.getUrlGetPlaces(lat, lon, radius));
         return response.data;
     },
 );

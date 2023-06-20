@@ -6,3 +6,13 @@ export interface IPlace {
     tags: { [key: string]: string },
     type: TPlaceKind
 }
+
+export interface IUser {
+    id: string
+    picture: string
+}
+
+export interface IJwtUser {
+    sub: number
+    picture: string
+}

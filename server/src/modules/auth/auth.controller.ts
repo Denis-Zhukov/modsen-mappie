@@ -40,7 +40,9 @@ export class AuthController {
   @Post('/refresh')
   public async refresh(@Req() request: Request) {
     try {
-      const refreshToken = request.cookies['refresh'];
+      const bearerToken = request.cookies['refresh'];
+      const refreshToken = bearerToken.split(' ')?.[1];
+
       const access = await this.authService.refresh(refreshToken);
 
       return { access };
