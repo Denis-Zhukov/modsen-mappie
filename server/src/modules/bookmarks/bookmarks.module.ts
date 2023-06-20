@@ -1,15 +1,14 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { AuthModel } from './auth.model';
+import { BookmarksController } from './bookmarks.controller';
 import { CheckAuthMiddleware } from '../../middlewares/check-auth.middleware';
+import { BookmarksService } from './bookmarks.service';
+import { DataTransformService } from '../places/data-transform.service';
 
 @Module({
-  controllers: [AuthController],
-  providers: [AuthService],
-  imports: [AuthModel]
+  controllers: [BookmarksController],
+  providers: [BookmarksService, DataTransformService],
 })
-export class AuthModule {
+export class BookmarksModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(CheckAuthMiddleware)

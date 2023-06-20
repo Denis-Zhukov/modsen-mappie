@@ -35,7 +35,6 @@ export class AuthService {
     );
 
     authInstance.set({ refreshToken: refreshToken });
-    console.log(authInstance);
     await authInstance.save();
 
     return [accessToken, refreshToken, picture];

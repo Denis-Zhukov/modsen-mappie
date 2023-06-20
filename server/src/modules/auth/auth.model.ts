@@ -1,5 +1,6 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { IAuth } from '../../typing/IAuth';
+import { BookmarksModel } from '../bookmarks/bookmarks.model';
 
 
 @Table
@@ -10,11 +11,14 @@ export class AuthModel extends Model<IAuth, IAuth> {
     primaryKey: true,
     allowNull: false
   })
-  declare id: number;
+  declare id: string;
 
   @Column({
     type: DataType.TEXT,
     allowNull: false
   })
   declare refreshToken: string;
+
+  @HasMany(() => BookmarksModel)
+  declare bookmarks: BookmarksModel[];
 }
