@@ -13,7 +13,7 @@ export class AuthModel extends Model<IAuth, IAuth> {
   declare id: number;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.TEXT,
     allowNull: false
   })
   declare refreshToken: string;

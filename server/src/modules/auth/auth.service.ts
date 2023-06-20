@@ -18,12 +18,9 @@ export class AuthService {
 
     const { sub, picture } = ticket.getPayload();
 
-    const [authInstance] = await AuthModel.findOrCreate({
+    const [authInstance] = await AuthModel.findOrBuild({
       where: { id: sub }
     });
-
-
-    await authInstance.save();
 
     const accessToken = jwt.sign(
       { id: sub, picture },
@@ -37,7 +34,9 @@ export class AuthService {
       { expiresIn: process.env.LIFE_REFRESH_TOKEN }
     );
 
-    authInstance.set({ refreshToken });
+    authInstance.set({ refreshToken: refreshToken });
+    console.log(authInstance);
+    await authInstance.save();
 
     return [accessToken, refreshToken, picture];
   }

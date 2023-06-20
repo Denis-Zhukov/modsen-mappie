@@ -13,8 +13,8 @@ export class AuthController {
   @Post('/login')
   public async login(@Res() response: Response, @Body() { credentials }: AuthLoginDto) {
     try {
+      console.log('HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
       const [access, refresh, picture] = await this.authService.auth(credentials);
-
       response.cookie('refresh', refresh, {
         httpOnly: true,
         sameSite: 'strict',
@@ -23,6 +23,7 @@ export class AuthController {
 
       response.json({ access, picture });
     } catch (e) {
+      console.log(e);
       throw new UnauthorizedException();
     }
   }
@@ -64,7 +65,7 @@ export class AuthController {
     try {
       await this.authService.logout(refreshToken);
     } finally {
-      return { success: true };
+      response.json({ success: true });
     }
   }
 }
