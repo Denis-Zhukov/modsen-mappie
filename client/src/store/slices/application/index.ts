@@ -30,8 +30,13 @@ const applicationSlice = createSlice({
             else state.filter.splice(index, 1);
         },
 
-        setUser(state, {payload: {user}}: PayloadAction<{ user: IUser & { access: string } }>) {
-            state.user = {id: user.picture, picture: user.picture};
+        setUser(state, {payload: {user}}: PayloadAction<{ user: IUser & { access: string } | null }>) {
+            if (user === null) {
+                state.user = user;
+                localStorage.removeItem('access_token');
+                return;
+            }
+            state.user = {id: user.id, picture: user.picture};
             localStorage.setItem('access_token', user.access);
         },
     },
