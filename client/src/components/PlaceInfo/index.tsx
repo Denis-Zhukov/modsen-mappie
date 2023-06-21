@@ -5,15 +5,15 @@ import {useActions, useAppSelector} from '@hooks';
 import noImage from '@images/no-image.png';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LocationIcon from '@mui/icons-material/LocationOn';
-import {Button, Stack, Typography} from '@mui/material';
+import {Button, Skeleton, Stack, Typography} from '@mui/material';
 
 import s from './style.module.scss';
 
 
 export const PlaceInfo = () => {
     const {getInfoAboutPlaceThunk, toggleFavoritePlaceThunk} = useActions();
-    const id = useAppSelector(state => state.application.currentPlaceId);
-    const place = useAppSelector(state => state.application.currentPlace);
+    const id = useAppSelector(({application}) => application.currentPlaceId);
+    const [place, loading] = useAppSelector(({application}) => [application.currentPlace, application.loading]);
 
     useEffect(() => {
         getInfoAboutPlaceThunk();
@@ -22,6 +22,21 @@ export const PlaceInfo = () => {
     const handleToggle = () => {
         toggleFavoritePlaceThunk(id);
     };
+
+    if (loading) return <>
+        <Skeleton variant="rectangular" height={200}/>
+        <Stack direction="row">
+            <Skeleton variant="circular" width={40} height={40}/>
+        </Stack>
+        <Skeleton variant="text" sx={{fontSize: '3rem'}}/>
+        <Typography align="justify" className={s.description}>
+            <Skeleton variant="text" sx={{fontSize: '1.5rem'}}/>
+        </Typography>
+        <Stack direction="row" className={s.bottomBtns} justifyContent="space-between" flexWrap="wrap" gap={1}>
+            <Skeleton variant="rounded" width={100} height={30}/>
+            <Skeleton variant="rounded" width={100} height={30}/>
+        </Stack>
+    </>;
 
     if (!place) return null;
 
@@ -34,8 +49,7 @@ export const PlaceInfo = () => {
         <Typography align="justify"
             className={s.description}>{place.tags.description ?? 'Описание отсутствует'}</Typography>
         <Stack direction="row" className={s.bottomBtns} justifyContent="space-between" flexWrap="wrap" gap={1}>
-            <Button variant="outlined" startIcon={<BookmarkIcon/>} className={s.saveBtn} color="error"
-                onClick={handleToggle}>
+            <Button variant="outlined" startIcon={<BookmarkIcon/>} className={s.saveBtn} color="error" onClick={handleToggle}>
                 Сохранить
             </Button>
             <Button variant="contained" startIcon={<LocationIcon/>}>

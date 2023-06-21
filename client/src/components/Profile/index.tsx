@@ -1,6 +1,7 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 
 
+import {Loader} from '@components/Loader';
 import {useActions, useAppSelector} from '@hooks';
 import {Logout} from '@mui/icons-material';
 import {Box, Menu, MenuItem} from '@mui/material';
@@ -18,27 +19,32 @@ import type {CredentialResponse} from '@react-oauth/google';
 export const Profile = () => {
     const {setUser} = useActions();
     const user = useAppSelector(selectUser);
+    const [processing, setProcessing] = useState(false);
 
     const handleOnSuccessLogin = useCallback(async (response: CredentialResponse) => {
+        setProcessing(true);
         const user = await AuthService.login(response.credential!);
         setUser({user});
+        setProcessing(false);
     }, [setUser]);
     const handleOnErrorLogin = () => {
     };
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
+    const handleClose = () => setAnchorEl(null);
 
     const handleLogout = async () => {
+        setProcessing(true);
         await AuthService.logout();
         setUser({user: null});
+        setProcessing(false);
     };
+
+    if (processing) return <Box
+        style={{marginTop: 'auto'}}
+    ><Loader/></Box>;
 
     return (<>
         {
