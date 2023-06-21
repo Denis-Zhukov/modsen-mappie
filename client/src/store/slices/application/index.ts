@@ -1,7 +1,8 @@
 import {typeIcons} from '@constants/icons';
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {getInfoAboutPlaceThunk} from '@store/slices/application/getInfoAboutPlaceThunk';
 
+import type {PayloadAction} from '@reduxjs/toolkit';
 import type {IPlace, IUser} from '@typing/interfaces';
 import type {TPlaceKind, TToolbarItem} from '@typing/types';
 

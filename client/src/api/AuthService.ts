@@ -15,6 +15,6 @@ export class AuthService {
     }
 
     public static async logout() {
-        await $api.post(urls.logout, {}, {withCredentials: true});
+        await axios.post(urls.logout, {}, {withCredentials: true});
     }
 }

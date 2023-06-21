@@ -28,6 +28,9 @@
       ],
       "@typing/*": [
         "./typing/*"
+      ],
+      "@contexts/*": [
+        "./contexts/*"
       ]
     }
   }

@@ -1,6 +1,5 @@
 import {useEffect} from 'react';
 
-import {Loader} from '@components/Loader';
 import {useActions, useAppSelector} from '@hooks';
 import noImage from '@images/no-image.png';
 import {
@@ -62,27 +61,27 @@ export const BookmarksPanel = () => {
 
     return <>
         {places.map(p => (<Card
-                key={p.id}
-                className={s.card}
-                onClick={() => handleClick(p.id)}
-            >
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        height="140"
-                        image={p.tags.image ?? noImage}
-                        alt="green iguana"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {p.tags['name:ru'] ?? p.tags['name']}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {p.tags.description ?? 'Описание отсутствует'}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>),
+            key={p.id}
+            className={s.card}
+            onClick={() => handleClick(p.id)}
+        >
+            <CardActionArea>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={p.tags.image ?? noImage}
+                    alt="green iguana"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {p.tags['name:ru'] ?? p.tags['name']}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {p.tags.description ?? 'Описание отсутствует'}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>),
         )}
     </>;
 };
