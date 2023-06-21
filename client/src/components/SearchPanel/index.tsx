@@ -3,8 +3,6 @@ import {RadiusInput} from '@components/RadiusInput';
 import SearchIcon from '@mui/icons-material/Search';
 import {
     Box,
-    Paper,
-    Stack,
     TextField,
     IconButton, Typography,
 } from '@mui/material';
@@ -12,26 +10,23 @@ import {
 import s from './style.module.scss';
 
 export const SearchPanel = () => {
-    return <Paper className={s.searchPanel}>
-        <Stack spacing={2}>
+    return <>
+        <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+            <SearchIcon/>
+            <TextField id="input-with-sx" label="Место" variant="standard"/>
+        </Box>
 
-            <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
-                <SearchIcon/>
-                <TextField id="input-with-sx" label="Место" variant="standard"/>
-            </Box>
+        <h3>Отображать: </h3>
+        <FilterList/>
 
-            <h3>Отображать: </h3>
-            <FilterList/>
+        <h3>Радиус: </h3>
+        <Box sx={{display: 'flex', alignItems: 'center', gap: '15px'}}>
+            <RadiusInput/>
+            <Typography>м</Typography>
+        </Box>
 
-            <h3>Радиус: </h3>
-            <Box sx={{display: 'flex', alignItems: 'center', gap: '15px'}}>
-                <RadiusInput/>
-                <Typography>м</Typography>
-            </Box>
-
-            <IconButton className={`${s.btn} ${s.searchBtn}`}>
-                <SearchIcon/>
-            </IconButton>
-        </Stack>
-    </Paper>;
+        <IconButton className={`${s.btn} ${s.searchBtn}`}>
+            <SearchIcon/>
+        </IconButton>
+    </>;
 };

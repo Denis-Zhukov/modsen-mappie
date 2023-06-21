@@ -1,11 +1,5 @@
 @import "src/styles/variables";
 
-.searchPanel {
-  max-height: min(800px, calc(100vh - 135px));
-  padding: 25px;
-  overflow-x: auto;
-}
-
 .searchBtn {
   width: 100%;
 }

@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 
 import {icons} from '@constants/icons';
 import {useActions, useAppSelector} from '@hooks';
+import noImage from '@images/no-image.png';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LocationIcon from '@mui/icons-material/LocationOn';
-import {Button, Paper, Stack, Typography} from '@mui/material';
+import {Button, Stack, Typography} from '@mui/material';
 
 import s from './style.module.scss';
 
@@ -24,24 +25,22 @@ export const PlaceInfo = () => {
 
     if (!place) return null;
 
-    return <Paper className={s.wrapper}>
-        <Stack p={1} spacing={2} className={s.block}>
-            <img src="https://placehold.co/600x400/EEE/31343C" alt="img" className={s.mainPicture}/>
-            <Stack direction="row">
-                <img src={icons[place.type].src} alt={icons[place.type].text} className={s.icon}/>
-            </Stack>
-            <h2>{place.tags['name:ru'] ?? place.tags['name']}</h2>
-            <Typography align="justify"
-                className={s.description}>{place.tags.description ?? 'Описание отсутствует'}</Typography>
-            <Stack direction="row" className={s.bottomBtns} justifyContent="space-between" flexWrap="wrap" gap={1}>
-                <Button variant="outlined" startIcon={<BookmarkIcon/>} className={s.saveBtn} color="error"
-                    onClick={handleToggle}>
-                    Сохранить
-                </Button>
-                <Button variant="contained" startIcon={<LocationIcon/>}>
-                    Маршрут
-                </Button>
-            </Stack>
+    return <>
+        <img src={place.tags.image ?? noImage} alt="img" className={s.mainPicture}/>
+        <Stack direction="row">
+            <img src={icons[place.type].src} alt={icons[place.type].text} className={s.icon}/>
         </Stack>
-    </Paper>;
+        <h2>{place.tags['name:ru'] ?? place.tags['name']}</h2>
+        <Typography align="justify"
+            className={s.description}>{place.tags.description ?? 'Описание отсутствует'}</Typography>
+        <Stack direction="row" className={s.bottomBtns} justifyContent="space-between" flexWrap="wrap" gap={1}>
+            <Button variant="outlined" startIcon={<BookmarkIcon/>} className={s.saveBtn} color="error"
+                onClick={handleToggle}>
+                Сохранить
+            </Button>
+            <Button variant="contained" startIcon={<LocationIcon/>}>
+                Маршрут
+            </Button>
+        </Stack>
+    </>;
 };
