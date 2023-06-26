@@ -46,7 +46,8 @@ export class DataTransformService {
       .map(p => ({
         type: this.determinePlace(p, categories),
         id: p.id,
-        position: [p.lat, p.lon]
+        position: [p.lat, p.lon],
+        name: p.tags['name:ru'] ?? p.tags.name
       }));
   }
 
