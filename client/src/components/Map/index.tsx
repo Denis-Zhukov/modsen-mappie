@@ -1,24 +1,19 @@
-import React, {FC, useCallback, useContext, useEffect, useRef} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 
 import {MapBody} from '@components/MapBody';
+import {MapContext} from '@context/MapContext';
 import {useActions, useAppSelector} from '@hooks';
-import {MapContext} from '@pages/Main';
 import {Map as YMap} from '@pbe/react-yandex-maps';
 import {selectMapSettings} from '@store/selectors/geolocation';
 import {useSearchParams} from 'react-router-dom';
 
+import s from './style.module.scss';
 
-interface Props {
-    className?: string;
-}
-
-export const Map: FC<Props> = (props) => {
-    const {setMap} = useContext(MapContext);
+export const Map = () => {
+    const {mapRef} = useContext(MapContext);
     const {setMapSettings} = useActions();
     const mapSettings = useAppSelector(selectMapSettings);
     const [, setSearchParams] = useSearchParams();
-
-    const mapRef = useRef<ymaps.Map>();
 
     useEffect(() => {
         const timer = setTimeout(
@@ -30,10 +25,6 @@ export const Map: FC<Props> = (props) => {
         return () => clearTimeout(timer);
     }, [mapSettings, setSearchParams]);
 
-    useEffect(() => {
-        setMap(mapRef);
-    }, [setMap]);
-
     const handleBoundsChange = useCallback((event: ymaps.IEvent) => {
         const map = event.get('target');
         const [lat, lon] = map.getCenter();
@@ -41,22 +32,20 @@ export const Map: FC<Props> = (props) => {
         setMapSettings({center: [lat, lon], zoom});
     }, [setMapSettings]);
 
-
-    useEffect(() => {
-    }, []);
-
-    return (<YMap
-        state={mapSettings}
-        options={{
-            suppressMapOpenBlock: true,
-            copyrightLogoVisible: false,
-            copyrightProvidersVisible: false,
-            copyrightUaVisible: false,
-        }}
-        className={props.className}
-        onBoundsChange={handleBoundsChange}
-        instanceRef={mapRef}
-    >
-        <MapBody/>
-    </YMap>);
+    return (
+        <YMap
+            state={mapSettings}
+            options={{
+                suppressMapOpenBlock: true,
+                copyrightLogoVisible: false,
+                copyrightProvidersVisible: false,
+                copyrightUaVisible: false,
+            }}
+            className={s.map}
+            onBoundsChange={handleBoundsChange}
+            instanceRef={mapRef!}
+        >
+            <MapBody/>
+        </YMap>
+    );
 };

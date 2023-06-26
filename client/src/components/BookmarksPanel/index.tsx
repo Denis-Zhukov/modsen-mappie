@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 
 import {useActions, useAppSelector} from '@hooks';
-import noImage from '@images/no-image.png';
+import noImage from '@images/placeholders/no-image.png';
 import {
     Alert,
     Paper,

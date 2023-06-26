@@ -1,39 +1,55 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 
+import {MapContext} from '@context/MapContext';
 import {useAppSelector} from '@hooks';
 import LocationIcon from '@mui/icons-material/LocationOn';
 import {Button} from '@mui/material';
-import {MapContext} from '@pages/Main';
 import {useYMaps} from '@pbe/react-yandex-maps';
 import {selectCurrentPlace} from '@store/selectors/application';
 import {selectPersonCoords} from '@store/selectors/geolocation';
+import {shallowEqual} from 'react-redux';
 
 export const RouteButton = () => {
     const [lat, lon] = useAppSelector(selectPersonCoords);
     const place = useAppSelector(selectCurrentPlace);
 
-    const {map, routeRef} = useContext(MapContext);
+    const {mapRef, routeRef} = useContext(MapContext);
     const ymaps = useYMaps(['multiRouter.MultiRoute']);
-    const handleRoute = () => {
-        if (routeRef.current) {
-            map.current.geoObjects.remove(routeRef.current);
-            routeRef.current = null;
+
+    const [current, setCurrent] = useState(false);
+
+    useEffect(() => {
+        if (routeRef!.current) {
+            const destination = routeRef!.current.model.getReferencePoints()[1];
+            if (shallowEqual(destination, place!.position)) setCurrent(true);
+        }
+    }, [routeRef, place]);
+
+    const handleRoute = useCallback(() => {
+        if (routeRef!.current) {
+            mapRef!.current!.geoObjects.remove(routeRef!.current);
+            const destination = routeRef!.current?.model.getReferencePoints()[1];
+            routeRef!.current = undefined;
+            if (shallowEqual(destination, place!.position)) return setCurrent(false);
         }
 
-        const pointA = [lat!, lon!];
-        const pointB = place!.position;
+        const start = [lat!, lon!];
+        const destination = place!.position;
 
-        routeRef.current = new ymaps!.multiRouter.MultiRoute(
+        routeRef!.current! = new ymaps!.multiRouter.MultiRoute(
             {
-                referencePoints: [pointA, pointB],
+                referencePoints: [start, destination],
                 params: {routingMode: 'pedestrian'},
             },
-            {boundsAutoApply: true},
+            {boundsAutoApply: true, wayPointVisible: false},
         );
-        map.current.geoObjects.add(routeRef.current);
-    };
+
+        setCurrent(true);
+        mapRef!.current!.geoObjects.add(routeRef!.current);
+    },[lat, lon, mapRef, routeRef, place, ymaps]);
+
 
     return <Button variant="contained" startIcon={<LocationIcon/>} onClick={handleRoute}>
-        Маршрут
+        {current ? 'Убрать' : 'Маршрут'}
     </Button>;
 };

@@ -13,7 +13,6 @@ import './styles/global.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-
 root.render(
     <GoogleOAuthProvider clientId={process.env.REACT_APP_OAUTH_GOOGLE!}>
         <Provider store={store}>

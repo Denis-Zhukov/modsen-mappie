@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from 'react';
 
 
+import {AuthService} from '@api/AuthService';
 import {Loader} from '@components/Loader';
 import {useActions, useAppSelector} from '@hooks';
 import {Logout} from '@mui/icons-material';
@@ -8,8 +9,6 @@ import {Box, Menu, MenuItem} from '@mui/material';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import {GoogleLogin} from '@react-oauth/google';
 import {selectUser} from '@store/selectors/application';
-
-import {AuthService} from '../../api/AuthService';
 
 import s from './style.module.scss';
 

@@ -7,7 +7,7 @@ import type {IPlace, IUser} from '@typing/interfaces';
 import type {TPlaceKind, TToolbarItem} from '@typing/types';
 
 interface State {
-    filter: TPlaceKind[],
+    filters: TPlaceKind[],
     activeMenuItem: TToolbarItem | null;
 
     user: IUser | null,
@@ -19,7 +19,7 @@ interface State {
 }
 
 const initialState: State = {
-    filter: typeIcons,
+    filters: typeIcons,
     activeMenuItem: null,
     user: null,
 
@@ -37,22 +37,19 @@ const applicationSlice = createSlice({
             if (clickedItemMenu === state.activeMenuItem) state.activeMenuItem = null;
             else state.activeMenuItem = clickedItemMenu;
         },
-        toggleItemFilter(state, {payload: {item}}: PayloadAction<{ item: TPlaceKind }>) {
-            const index = state.filter.indexOf(item);
-            if (index === -1) state.filter.push(item);
-            else state.filter.splice(index, 1);
+        toggleItemFilter({filters}, {payload: {item}}: PayloadAction<{ item: TPlaceKind }>) {
+            const index = filters.indexOf(item);
+            if (index === -1) filters.push(item);
+            else filters.splice(index, 1);
         },
-
         setUser(state, {payload: {user}}: PayloadAction<{ user: IUser & { access: string } | null }>) {
-            if (user === null) {
-                state.user = user;
-                localStorage.removeItem('access_token');
-                return;
+            if (!user) {
+                state.user = null;
+                return localStorage.removeItem('access_token');
             }
             state.user = {id: user.id, picture: user.picture};
             localStorage.setItem('access_token', user.access);
         },
-
         showPlaceInfo(state, {payload: {id}}: PayloadAction<{ id: number }>) {
             state.currentPlaceId = id;
             state.activeMenuItem = 'info';

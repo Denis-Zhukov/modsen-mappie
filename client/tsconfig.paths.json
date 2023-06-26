@@ -2,36 +2,18 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@components/*": [
-        "./components/*"
-      ],
-      "@pages/*": [
-        "./pages/*"
-      ],
-      "@images/*": [
-        "./assets/images/*"
-      ],
-      "@hooks/*": [
-        "./hooks/*"
-      ],
-      "@hooks": [
-        "./hooks/index.ts"
-      ],
-      "@store/*": [
-        "./store/*"
-      ],
-      "@styles/*": [
-        "./styles/*"
-      ],
-      "@constants/*": [
-        "./constants/*"
-      ],
-      "@typing/*": [
-        "./typing/*"
-      ],
-      "@contexts/*": [
-        "./contexts/*"
-      ]
+      "@components/*": ["./components/*"],
+      "@pages/*": ["./pages/*"],
+      "@images/*": ["./assets/images/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@hooks": ["./hooks/index.ts"],
+      "@store/*": ["./store/*"],
+      "@styles/*": ["./styles/*"],
+      "@constants/*": ["./constants/*"],
+      "@typing/*": ["./typing/*"],
+      "@api/*": ["./api/*"],
+      "@api": ["./api/index.ts"],
+      "@context/*": ["./context/*"]
     }
   }
 }

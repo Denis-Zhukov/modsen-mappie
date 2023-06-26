@@ -1,7 +1,7 @@
 import {urls} from '@constants/urls';
 import axios from 'axios';
 
-import {$api} from './index';
+import {$api} from './instance';
 
 export class AuthService {
     public static async login(credentials: string) {

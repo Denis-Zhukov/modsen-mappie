@@ -1,23 +1,18 @@
-import React, {createContext, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 
+import {AuthService} from '@api/AuthService';
 import {Controls} from '@components/Controls';
 import {Map} from '@components/Map';
+import {MapContext} from '@context/MapContext';
 import {useActions} from '@hooks';
-
-import {AuthService} from '../../api/AuthService';
 
 import s from './style.module.scss';
 
-export const MapContext = createContext<{ map: any, setMap: any, routeRef: any }>({
-    map: null,
-    setMap: null,
-    routeRef: null,
-});
 
 export const Main = () => {
     const {setMapSettings, setUser} = useActions();
-    const [map, setMap] = useState(null);
-    const routeRef = useRef(null);
+    const mapRef = useRef<ymaps.Map>();
+    const routeRef = useRef<ymaps.multiRouter.MultiRoute>();
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -41,10 +36,10 @@ export const Main = () => {
 
 
     return (
-        <MapContext.Provider value={{map, setMap, routeRef}}>
+        <MapContext.Provider value={{mapRef, routeRef}}>
             <div className={s.container}>
                 <Controls/>
-                <Map className={s.map}/>
+                <Map/>
             </div>
         </MapContext.Provider>
     );

@@ -11,8 +11,3 @@ export interface IUser {
     id: string
     picture: string
 }
-
-export interface IJwtUser {
-    sub: number
-    picture: string
-}

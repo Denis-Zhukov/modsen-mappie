@@ -9,7 +9,7 @@ interface State {
     center: [number, number]
     zoom: number,
 
-    places: IPlace[],
+    places: Omit<IPlace, 'tags'>[],
     loading: boolean,
     error: null | any,
 

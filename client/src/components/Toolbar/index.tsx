@@ -17,9 +17,9 @@ export const Toolbar = React.memo(() => (
                 src="logo512.png"
                 className={s.logo}
             />
-
-            {toolbarItems.map((item, i) => <ToolbarItem key={i} type={item.type}>{item.component}</ToolbarItem>)}
-
+            {toolbarItems.map((item, i) => (
+                <ToolbarItem key={i} type={item.type}>{item.component}</ToolbarItem>
+            ))}
             <Profile/>
         </Stack>
     </Paper>

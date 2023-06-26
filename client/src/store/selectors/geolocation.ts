@@ -23,9 +23,9 @@ export const selectPlaces = createSelector(
     [
         ({geolocation}: RootState) => geolocation.places,
         ({geolocation}: RootState) => geolocation.error,
-        ({application}: RootState) => application.filter,
+        ({application}: RootState) => application.filters,
     ],
     (places, error, filter) => {
-        return [places.filter(p => filter.includes(p.type)), error] as [IPlace[], any];
+        return [places.filter(({type}) => filter.includes(type)), error] as [IPlace[], any];
     },
 );

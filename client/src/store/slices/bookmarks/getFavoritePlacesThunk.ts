@@ -1,6 +1,5 @@
+import {BookmarksService} from '@api/BookmarksService';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-
-import {BookmarksService} from '../../../api/BookmarksService';
 
 import type {RootState} from '@store/index';
 
