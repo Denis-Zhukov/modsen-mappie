@@ -5,12 +5,15 @@ import {Place} from '@components/Place';
 import type {IPlace} from '@typing/interfaces';
 
 interface Props {
-    items: IPlace[]
+    places: IPlace[]
 }
 
-export const Places: FC<Props> = React.memo(({items}) => (<>
-    {items.map(p => <Place key={p.id} id={p.id} geometry={p.position} type={p.type}/>)}
-</>), ({items: prevPlaces}, {items: nextPlaces}) => {
+export const Places: FC<Props> = React.memo(({places}) => (<>
+    {places.map((place) => <Place key={place.id} id={place.id} geometry={place.position} type={place.type}/>)}
+</>), ({places: prevPlaces}, {places: nextPlaces}) => {
     return nextPlaces.length === prevPlaces.length &&
-        nextPlaces.every(({id: nextId}) => prevPlaces.find(({id: prevId}) => prevId === nextId));
+        nextPlaces.every(
+            ({id: nextId}) => prevPlaces.find(
+                ({id: prevId}) => prevId === nextId),
+        );
 });
