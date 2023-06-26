@@ -33,6 +33,7 @@ export class DataTransformService {
   private determinePlace(place: OverpassNodeDto, categories: string[]) {
     for (const category of categories) {
       const fieldCategory = filtersByCategory[category];
+      if (!fieldCategory) continue;
       if (this.placeBelongCategory(place, fieldCategory))
         return category;
     }
