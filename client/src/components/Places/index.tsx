@@ -5,7 +5,7 @@ import {Place} from '@components/Place';
 import type {IPlace} from '@typing/interfaces';
 
 interface Props {
-    places: IPlace[]
+    places: Omit<IPlace, 'tags'>[]
 }
 
 export const Places: FC<Props> = React.memo(({places}) => (<>

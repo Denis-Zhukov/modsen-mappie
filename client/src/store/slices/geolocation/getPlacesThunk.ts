@@ -8,11 +8,11 @@ import type {AxiosResponse} from 'axios';
 
 export const getPlacesThunk = createAsyncThunk<any, void, { state: RootState }>(
     'geolocation/get-places',
-    async (a, thunkApi): Promise<Omit<IPlace, 'tags'>[]> => {
+    async (a, thunkApi): Promise<(Omit<IPlace, 'tags'> & { name: string })[]> => {
         const {personCoords: [lat, lon], radius} = thunkApi.getState().geolocation;
         if (!lat || !lon) return [];
 
-        const response: AxiosResponse<Omit<IPlace, 'tags'>[]> = await PlacesService.getPlaces(lat, lon, radius, thunkApi.getState().application.filters);
+        const response: AxiosResponse<(Omit<IPlace, 'tags'> & { name: string })[]> = await PlacesService.getPlaces(lat, lon, radius, thunkApi.getState().application.typeFilter);
         return response.data;
     }, {dispatchConditionRejection: true},
 );

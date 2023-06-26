@@ -1,9 +1,10 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-import s from '@components/SearchPanel/style.module.scss';
 import {useActions, useAppSelector} from '@hooks';
 import {TextField} from '@mui/material';
 import {selectRadius} from '@store/selectors/geolocation';
+
+import s from './style.module.scss';
 
 
 export const RadiusInput = () => {
@@ -15,8 +16,7 @@ export const RadiusInput = () => {
     useEffect(() => {
         if (inputRef.current)
             inputRef.current.value = '' + radius;
-        //eslint-disable-next-line
-    }, []);
+    }, [radius]);
 
     const handleChangeRadius = useCallback(() => {
         const radius = +inputRef.current?.value!;

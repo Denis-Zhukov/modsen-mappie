@@ -1,19 +1,27 @@
+import {useCallback} from 'react';
+
 import {FilterList} from '@components/FilterList';
 import {RadiusInput} from '@components/RadiusInput';
+import {useActions, useAppSelector} from '@hooks';
 import SearchIcon from '@mui/icons-material/Search';
 import {
     Box,
     TextField,
-    IconButton, Typography,
+    Typography,
 } from '@mui/material';
 
-import s from './style.module.scss';
-
 export const SearchPanel = () => {
+    const {setNameFilter} = useActions();
+    const nameFilter = useAppSelector(state => state.application.nameFilter);
+
+    const handleInput = useCallback((e: any) => {
+        setNameFilter({name: e.target.value});
+    }, [setNameFilter]);
+
     return <>
         <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
             <SearchIcon/>
-            <TextField id="input-with-sx" label="Место" variant="standard"/>
+            <TextField id="input-with-sx" label="Название" variant="standard" value={nameFilter} onChange={handleInput}/>
         </Box>
 
         <h3>Отображать: </h3>
@@ -24,9 +32,5 @@ export const SearchPanel = () => {
             <RadiusInput/>
             <Typography>м</Typography>
         </Box>
-
-        <IconButton className={`${s.btn} ${s.searchBtn}`}>
-            <SearchIcon/>
-        </IconButton>
     </>;
 };

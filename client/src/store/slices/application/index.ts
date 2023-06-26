@@ -7,7 +7,8 @@ import type {IPlace, IUser} from '@typing/interfaces';
 import type {TPlaceKind, TToolbarItem} from '@typing/types';
 
 interface State {
-    filters: TPlaceKind[],
+    nameFilter: string,
+    typeFilter: TPlaceKind[],
     activeMenuItem: TToolbarItem | null;
 
     user: IUser | null,
@@ -19,7 +20,8 @@ interface State {
 }
 
 const initialState: State = {
-    filters: typeIcons,
+    nameFilter: '',
+    typeFilter: typeIcons,
     activeMenuItem: null,
     user: null,
 
@@ -37,10 +39,13 @@ const applicationSlice = createSlice({
             if (clickedItemMenu === state.activeMenuItem) state.activeMenuItem = null;
             else state.activeMenuItem = clickedItemMenu;
         },
-        toggleItemFilter({filters}, {payload: {item}}: PayloadAction<{ item: TPlaceKind }>) {
-            const index = filters.indexOf(item);
-            if (index === -1) filters.push(item);
-            else filters.splice(index, 1);
+        setNameFilter(state, {payload: {name}}: PayloadAction<{ name: string }>) {
+            state.nameFilter = name;
+        },
+        toggleItemFilter({typeFilter}, {payload: {item}}: PayloadAction<{ item: TPlaceKind }>) {
+            const index = typeFilter.indexOf(item);
+            if (index === -1) typeFilter.push(item);
+            else typeFilter.splice(index, 1);
         },
         setUser(state, {payload: {user}}: PayloadAction<{ user: IUser & { access: string } | null }>) {
             if (!user) {
