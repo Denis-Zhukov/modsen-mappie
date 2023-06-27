@@ -5,15 +5,15 @@ import {PersonMarker} from '@components/PersonMarker';
 import {PersonRadius} from '@components/PersonRadius';
 import {Places} from '@components/Places';
 import {useActions, useAppSelector} from '@hooks';
-import {selectFilter} from '@store/selectors/application';
+import {selectTypeFilter} from '@store/selectors/application';
 import {selectPersonCoords, selectPlaces, selectRadius} from '@store/selectors/geolocation';
 
 export const PersonArea = () => {
     const {getPlacesThunk} = useActions();
-    const [places] = useAppSelector(selectPlaces);
+    const {places} = useAppSelector(selectPlaces);
     const [lat, lon] = useAppSelector(selectPersonCoords);
     const radius = useAppSelector(selectRadius);
-    const filters = useAppSelector(selectFilter);
+    const filters = useAppSelector(selectTypeFilter);
 
     useEffect(() => {
         const timer = setTimeout(() => getPlacesThunk(), 750);

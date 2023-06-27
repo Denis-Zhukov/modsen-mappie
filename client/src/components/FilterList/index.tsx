@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {selectFilter} from '@store/selectors/application';
+import {selectTypeFilter} from '@store/selectors/application';
 
 import s from './style.module.scss';
 
@@ -15,7 +15,7 @@ import type {TPlaceKind} from '@typing/types';
 
 export const FilterList = () => {
     const {toggleItemFilter} = useActions();
-    const filter = useAppSelector(selectFilter);
+    const filter = useAppSelector(selectTypeFilter);
 
     const handleToggle = (value: TPlaceKind) => {
         toggleItemFilter({item: value});

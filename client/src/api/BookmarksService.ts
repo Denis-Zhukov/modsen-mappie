@@ -13,6 +13,6 @@ export class BookmarksService {
     }
 
     public static async toggleFavoritePlace(placeId: number) {
-        await $api.post(urls.toggleFavoritePlace, {placeId}, {withCredentials: true});
+        return await $api.post(urls.toggleFavoritePlace, {placeId}, {withCredentials: true});
     }
 }

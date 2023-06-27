@@ -30,16 +30,6 @@
   margin-top: auto !important;
 }
 
-.saveBtn {
-  color: $red;
-  border-color: $red;
-  border-width: 2px;
-
-  &:hover {
-    border-width: 2px;
-  }
-}
-
 @media screen and (max-width: $sm) {
   .bottomBtns > *{
     width: 100%;

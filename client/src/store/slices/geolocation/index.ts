@@ -70,7 +70,7 @@ const geolocationSlice = createSlice({
             })
             .addCase(getPlacesThunk.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.error?.message ?? 'произошла неожиданная ошибка';
             });
     },
 });

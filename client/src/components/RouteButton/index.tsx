@@ -11,7 +11,7 @@ import {shallowEqual} from 'react-redux';
 
 export const RouteButton = () => {
     const [lat, lon] = useAppSelector(selectPersonCoords);
-    const place = useAppSelector(selectCurrentPlace);
+    const {place} = useAppSelector(selectCurrentPlace);
 
     const {mapRef, routeRef} = useContext(MapContext);
     const ymaps = useYMaps(['multiRouter.MultiRoute']);
@@ -46,7 +46,7 @@ export const RouteButton = () => {
 
         setCurrent(true);
         mapRef!.current!.geoObjects.add(routeRef!.current);
-    },[lat, lon, mapRef, routeRef, place, ymaps]);
+    }, [lat, lon, mapRef, routeRef, place, ymaps]);
 
 
     return <Button variant="contained" startIcon={<LocationIcon/>} onClick={handleRoute}>

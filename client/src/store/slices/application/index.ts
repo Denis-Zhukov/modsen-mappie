@@ -14,9 +14,9 @@ interface State {
     user: IUser | null,
 
     currentPlaceId: number,
-    currentPlace: IPlace | null
+    currentPlace: IPlace & { saved?: boolean } | null
     loading: boolean,
-    error: null | any,
+    error: null | any
 }
 
 const initialState: State = {
@@ -67,13 +67,16 @@ const applicationSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(getInfoAboutPlaceThunk.fulfilled, (state, action) => {
+            .addCase(getInfoAboutPlaceThunk.fulfilled, (state, {payload}: PayloadAction<{
+                place: IPlace,
+                saved: boolean
+            }>) => {
                 state.loading = false;
-                state.currentPlace = action.payload;
+                state.currentPlace = {...payload.place, saved: payload.saved};
             })
             .addCase(getInfoAboutPlaceThunk.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.error?.message ?? 'Произошла неожиданная ошибка';
             });
     },
 });

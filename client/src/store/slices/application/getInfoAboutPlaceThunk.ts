@@ -9,7 +9,10 @@ export const getInfoAboutPlaceThunk = createAsyncThunk<any, void, { state: RootS
     'application/getInfoAboutPlaceThunk',
     async (state, thunkAPI) => {
         const id = thunkAPI.getState().application.currentPlaceId;
-        const response: AxiosResponse<IPlace> = await PlacesService.getPlaceById(id);
+        const response: AxiosResponse<{
+            place: IPlace,
+            saved: boolean,
+        }> = await PlacesService.getPlaceById(id);
         return response.data;
     }, {dispatchConditionRejection: true},
 );

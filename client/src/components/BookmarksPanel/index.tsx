@@ -19,7 +19,7 @@ import s from './style.module.scss';
 
 export const BookmarksPanel = () => {
     const user = useAppSelector(selectUser);
-    const [places, loading] = useAppSelector(({bookmarks}) => [bookmarks.favoritePlaces, bookmarks.loading]);
+    const [places, loading] = useAppSelector(({bookmarks}) => [bookmarks.favoritePlaces, bookmarks.loadingFavoritePlaces]);
     const {getFavoritePlacesThunk, showPlaceInfo} = useActions();
 
     useEffect(() => {
@@ -70,7 +70,7 @@ export const BookmarksPanel = () => {
                     component="img"
                     height="140"
                     image={p.tags.image ?? noImage}
-                    alt="green iguana"
+                    alt="Place image"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

@@ -1,0 +1,11 @@
+@import "src/styles/variables";
+
+.saveBtn {
+  color: $red;
+  border-color: $red;
+  border-width: 2px;
+
+  &:hover {
+    border-width: 2px;
+  }
+}

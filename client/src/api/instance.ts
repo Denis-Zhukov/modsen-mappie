@@ -22,7 +22,7 @@ $api.interceptors.response.use((config) => {
             localStorage.setItem('access_token', response.data.access);
             return $api.request(originalRequest);
         } catch (e) {
-            console.log('Unauth');
+            console.log('Unauthorized');
         }
     }
     throw error;

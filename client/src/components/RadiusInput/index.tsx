@@ -1,10 +1,12 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 
+import {Toast} from '@components/Toast';
 import {useActions, useAppSelector} from '@hooks';
 import {TextField} from '@mui/material';
 import {selectRadius} from '@store/selectors/geolocation';
 
 import s from './style.module.scss';
+
 
 
 export const RadiusInput = () => {
@@ -27,12 +29,18 @@ export const RadiusInput = () => {
     }, [setPersonRadius]);
 
     return (
-        <TextField
-            inputRef={inputRef}
-            type="number"
-            onChange={handleChangeRadius}
-            className={s.radiusField}
-            error={error}
-        />
+        <>
+            <TextField
+                inputRef={inputRef}
+                type="number"
+                onChange={handleChangeRadius}
+                className={s.radiusField}
+                error={error}
+            />
+            {error && <Toast
+                type="error"
+                message="Неверно указан радиус"
+            />}
+        </>
     );
 };

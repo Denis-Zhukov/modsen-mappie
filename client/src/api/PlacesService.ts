@@ -1,3 +1,4 @@
+import {$api} from '@api/instance';
 import {urls} from '@constants/urls';
 import axios from 'axios';
 
@@ -9,7 +10,7 @@ export class PlacesService {
         return await axios.get(urls.getUrlGetPlaces(lat, lon, radius, filter));
     }
 
-    public static async getPlaceById(id:number) {
-        return await axios.get(urls.getUrlGetPlaceById(id));
+    public static async getPlaceById(id: number) {
+        return await $api.get(urls.getUrlGetPlaceById(id));
     }
 }

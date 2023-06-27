@@ -6,6 +6,7 @@ import type {RootState} from '@store/index';
 export const toggleFavoritePlaceThunk = createAsyncThunk<any, number, { state: RootState }>(
     'bookmarks/toggleFavoritePlace',
     async (placeId) => {
-        await BookmarksService.toggleFavoritePlace(placeId);
+        const {data} = await BookmarksService.toggleFavoritePlace(placeId);
+        return data;
     }, {dispatchConditionRejection: true},
 );

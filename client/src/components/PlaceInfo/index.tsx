@@ -1,28 +1,26 @@
 import React, {useEffect} from 'react';
 
 import {RouteButton} from '@components/RouteButton';
+import {Toast} from '@components/Toast';
+import {ToggleFavoritePlaceButton} from '@components/ToggleFavoritePlaceButton';
 import {icons} from '@constants/icons';
 import {useActions, useAppSelector} from '@hooks';
 import noImage from '@images/placeholders/no-image.png';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import {Button, Skeleton, Stack, Typography} from '@mui/material';
+import {Skeleton, Stack, Typography} from '@mui/material';
+import {selectPlaceInfo} from '@store/selectors/application';
+import {selectToggleFavoriteStatus} from '@store/selectors/bookmarks';
 
 import s from './style.module.scss';
 
 
 export const PlaceInfo = () => {
-    const {getInfoAboutPlaceThunk, toggleFavoritePlaceThunk} = useActions();
+    const {getInfoAboutPlaceThunk} = useActions();
+    const {id, placeInfoQuery: {place, loading, error}} = useAppSelector(selectPlaceInfo);
+    const {success} = useAppSelector(selectToggleFavoriteStatus);
 
-    const id = useAppSelector(({application}) => application.currentPlaceId);
-    const [place, loading] = useAppSelector(({application}) => [application.currentPlace, application.loading]);
     useEffect(() => {
         getInfoAboutPlaceThunk();
-    }, [getInfoAboutPlaceThunk, id]);
-
-    const handleToggle = () => {
-        toggleFavoritePlaceThunk(id);
-    };
-
+    }, [getInfoAboutPlaceThunk, success, id]);
 
     if (loading) return <>
         <Skeleton variant="rectangular" height={200}/>
@@ -39,6 +37,11 @@ export const PlaceInfo = () => {
         </Stack>
     </>;
 
+    if (error) return <Toast
+        type="error"
+        message={error}
+    />;
+
     if (!place) return null;
 
     return <>
@@ -50,10 +53,7 @@ export const PlaceInfo = () => {
         <Typography align="justify"
             className={s.description}>{place.tags.description ?? 'Описание отсутствует'}</Typography>
         <Stack direction="row" className={s.bottomBtns} justifyContent="space-between" flexWrap="wrap" gap={1}>
-            <Button variant="outlined" startIcon={<BookmarkIcon/>} className={s.saveBtn} color="error"
-                onClick={handleToggle}>
-                Сохранить
-            </Button>
+            <ToggleFavoritePlaceButton/>
             <RouteButton/>
         </Stack>
     </>;
