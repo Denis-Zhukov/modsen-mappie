@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, Param, Query } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Param, Query, Req } from '@nestjs/common';
 import { GetAllPlacesDto } from './dto/get-all-places.dto';
 import { PlacesService } from './places.service';
 import { DataTransformService } from './data-transform.service';
@@ -36,12 +36,15 @@ export class PlacesController {
   }
 
   @Get('/place/:id')
-  public async getPlaceById(@Param('id') id) {
+  public async getPlaceById(@Req() req, @Param('id') id) {
     const parsedId = +id;
     if (!parsedId) throw new BadRequestException({ error: 'wrong id' });
     const places = await this.placesService.getPlaceById(parsedId);
 
     const categories = Object.keys(filtersByCategory);
-    return this.dataTransformService.transformWithDesc(places, categories)[0];
+    return {
+      place: this.dataTransformService.transformWithDesc(places, categories)[0],
+      saved: req.user && await this.placesService.checkSaved(req.user.id, parsedId)
+    };
   }
 }

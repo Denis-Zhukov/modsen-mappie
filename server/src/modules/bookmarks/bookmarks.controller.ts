@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { BookmarksService } from './bookmarks.service';
 import { ToggleFavoritePlaceDto } from './dto/toggle-favorite-place.dto';

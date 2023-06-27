@@ -10,11 +10,8 @@ export class CheckAuthMiddleware implements NestMiddleware {
         req.user = jwt.verify(token, process.env.ACCESS_SECRET);
       } catch (e) {
         console.log(e);
-        throw new UnauthorizedException();
       }
     }
-
     next();
   }
-
 }

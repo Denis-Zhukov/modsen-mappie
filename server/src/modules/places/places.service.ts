@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { filtersByCategory } from '../../constants/filters-by-category';
 import { OverpassNodeDto } from './dto/overpass-node.dto';
+import { BookmarksModel } from '../bookmarks/bookmarks.model';
 
 @Injectable()
 export class PlacesService {
@@ -34,5 +35,13 @@ export class PlacesService {
     const response = await fetch(url);
     const res = await response.json();
     return res.elements as OverpassNodeDto[];
+  }
+
+  public async checkSaved(personId: string, placeId: number) {
+    const instance = await BookmarksModel.findOne({
+      where: { personId, placeId }
+    });
+
+    return instance !== null;
   }
 }

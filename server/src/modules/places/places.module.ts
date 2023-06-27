@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { PlacesService } from './places.service';
 import { DataTransformService } from './data-transform.service';
 import { PlacesController } from './places.controller';
+import { CheckAuthMiddleware } from '../../middlewares/check-auth.middleware';
 
 @Module({
   controllers: [PlacesController],
@@ -9,4 +10,9 @@ import { PlacesController } from './places.controller';
   exports:[DataTransformService]
 })
 export class PlacesModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(CheckAuthMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
 }
