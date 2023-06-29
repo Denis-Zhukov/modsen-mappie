@@ -1,9 +1,8 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {getPlacesThunk} from '@store/slices/geolocation/getPlacesThunk';
+import { createSlice } from '@reduxjs/toolkit';
+import { getPlacesThunk } from '@store/slices/geolocation/getPlacesThunk';
 
-import type {PayloadAction} from '@reduxjs/toolkit';
-import type {IPlace} from '@typing/interfaces';
-
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { IPlace } from '@typing/interfaces';
 
 interface State {
     center: [number, number]
@@ -35,27 +34,26 @@ const geolocationSlice = createSlice({
     name: 'geolocation',
     initialState,
     reducers: {
-        setMapSettings(state, {payload}: PayloadAction<Pick<State, 'center' | 'zoom'>>) {
+        setMapSettings(state, { payload }: PayloadAction<Pick<State, 'center' | 'zoom'>>) {
             state.center = payload.center;
             state.zoom = payload.zoom;
         },
 
-        setMapPosition(state, {payload}: PayloadAction<Pick<State, 'center'>>) {
+        setMapPosition(state, { payload }: PayloadAction<Pick<State, 'center'>>) {
             state.center = payload.center;
         },
 
-        setPersonPosition(state, {payload}: PayloadAction<Pick<State, 'personCoords' | 'geoAccuracy'>>) {
+        setPersonPosition(state, { payload }: PayloadAction<Pick<State, 'personCoords' | 'geoAccuracy'>>) {
             state.personCoords = payload.personCoords;
             state.geoAccuracy = payload.geoAccuracy;
         },
 
-        setPersonRadius(state, {payload}: PayloadAction<Pick<State, 'radius'>>) {
+        setPersonRadius(state, { payload }: PayloadAction<Pick<State, 'radius'>>) {
             state.radius = payload.radius;
         },
 
         centerMapByPerson(state) {
-            if (!state.personCoords.some(coord => coord === null))
-                state.center = state.personCoords as [number, number];
+            if (!state.personCoords.some((coord) => coord === null)) { state.center = state.personCoords as [number, number]; }
         },
     },
     extraReducers: (builder) => {
@@ -75,5 +73,5 @@ const geolocationSlice = createSlice({
     },
 });
 
-export const {actions: geolocationActions} = geolocationSlice;
+export const { actions: geolocationActions } = geolocationSlice;
 export default geolocationSlice.reducer;

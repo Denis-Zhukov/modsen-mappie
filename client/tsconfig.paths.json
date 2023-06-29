@@ -13,7 +13,8 @@
       "@typing/*": ["./typing/*"],
       "@api": ["./api/index.ts"],
       "@api/*": ["./api/*"],
-      "@context/*": ["./context/*"]
+      "@context/*": ["./context/*"],
+      "@utils/*": ["./utils/*"]
     }
   }
 }

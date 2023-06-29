@@ -11,3 +11,20 @@ export interface IUser {
     id: string
     picture: string
 }
+
+export interface IToggleFavoritePlaceResponse {
+    added: boolean,
+    deleted: boolean,
+}
+
+export interface IPlaceWithoutDescription {
+    id: number,
+    position: [number, number],
+    name: string,
+    type: TPlaceKind
+}
+
+export interface ISpecificPlace {
+    place: IPlace,
+    saved: boolean
+}

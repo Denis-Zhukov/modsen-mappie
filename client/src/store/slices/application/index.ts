@@ -1,6 +1,7 @@
 import {typeIcons} from '@constants/icons';
 import {createSlice} from '@reduxjs/toolkit';
 import {getInfoAboutPlaceThunk} from '@store/slices/application/getInfoAboutPlaceThunk';
+import {removeAccessToken, setAccessToken} from '@utils/localStorage';
 
 import type {PayloadAction} from '@reduxjs/toolkit';
 import type {IPlace, IUser} from '@typing/interfaces';
@@ -9,7 +10,7 @@ import type {TPlaceKind, TToolbarItem} from '@typing/types';
 interface State {
     nameFilter: string,
     typeFilter: TPlaceKind[],
-    activeMenuItem: TToolbarItem | null;
+    activeToolbarItem: TToolbarItem | null;
 
     user: IUser | null,
 
@@ -22,7 +23,7 @@ interface State {
 const initialState: State = {
     nameFilter: '',
     typeFilter: typeIcons,
-    activeMenuItem: null,
+    activeToolbarItem: null,
     user: null,
 
     currentPlaceId: 0,
@@ -35,9 +36,8 @@ const applicationSlice = createSlice({
     name: 'application',
     initialState,
     reducers: {
-        setActiveToolbarItem(state, {payload: {clickedItemMenu}}: PayloadAction<{ clickedItemMenu: TToolbarItem }>) {
-            if (clickedItemMenu === state.activeMenuItem) state.activeMenuItem = null;
-            else state.activeMenuItem = clickedItemMenu;
+        setActiveToolbarItem(state, {payload: {activeToolbarItem}}: PayloadAction<Pick<State, 'activeToolbarItem'>>) {
+            state.activeToolbarItem = activeToolbarItem;
         },
         setNameFilter(state, {payload: {name}}: PayloadAction<{ name: string }>) {
             state.nameFilter = name;
@@ -50,14 +50,14 @@ const applicationSlice = createSlice({
         setUser(state, {payload: {user}}: PayloadAction<{ user: IUser & { access: string } | null }>) {
             if (!user) {
                 state.user = null;
-                return localStorage.removeItem('access_token');
+                return removeAccessToken();
             }
             state.user = {id: user.id, picture: user.picture};
-            localStorage.setItem('access_token', user.access);
+            setAccessToken(user.access);
         },
         showPlaceInfo(state, {payload: {id}}: PayloadAction<{ id: number }>) {
             state.currentPlaceId = id;
-            state.activeMenuItem = 'info';
+            state.activeToolbarItem = 'info';
         },
     },
 

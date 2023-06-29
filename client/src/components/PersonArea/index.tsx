@@ -1,16 +1,16 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
-import {PersonInaccuracy} from '@components/PersonInaccuracy';
-import {PersonMarker} from '@components/PersonMarker';
-import {PersonRadius} from '@components/PersonRadius';
-import {Places} from '@components/Places';
-import {useActions, useAppSelector} from '@hooks';
-import {selectTypeFilter} from '@store/selectors/application';
-import {selectPersonCoords, selectPlaces, selectRadius} from '@store/selectors/geolocation';
+import { PersonInaccuracy } from '@components/PersonInaccuracy';
+import { PersonMarker } from '@components/PersonMarker';
+import { PersonRadius } from '@components/PersonRadius';
+import { Places } from '@components/Places';
+import { useActions, useAppSelector } from '@hooks';
+import { selectTypeFilter } from '@store/selectors/application';
+import { selectPersonCoords, selectPlaces, selectRadius } from '@store/selectors/geolocation';
 
-export const PersonArea = () => {
-    const {getPlacesThunk} = useActions();
-    const {places} = useAppSelector(selectPlaces);
+export function PersonArea() {
+    const { getPlacesThunk } = useActions();
+    const { places } = useAppSelector(selectPlaces);
     const [lat, lon] = useAppSelector(selectPersonCoords);
     const radius = useAppSelector(selectRadius);
     const filters = useAppSelector(selectTypeFilter);
@@ -20,11 +20,13 @@ export const PersonArea = () => {
         return () => clearTimeout(timer);
     }, [getPlacesThunk, lat, lon, radius, filters]);
 
-    return <>
-        <PersonMarker/>
-        <PersonInaccuracy/>
-        <PersonRadius/>
+    return (
+        <>
+            <PersonMarker />
+            <PersonInaccuracy />
+            <PersonRadius />
 
-        <Places places={places}/>
-    </>;
-};
+            <Places places={places} />
+        </>
+    );
+}

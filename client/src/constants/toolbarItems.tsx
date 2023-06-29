@@ -1,8 +1,8 @@
-import {BookmarksButton} from '@components/BookmarksButton';
-import {SearchButton} from '@components/SearchButton';
+import { BookmarksButton } from '@components/BookmarksButton';
+import { SearchButton } from '@components/SearchButton';
 
-import type {ReactJSXElement} from '@emotion/react/types/jsx-namespace';
-import type {TToolbarItem} from '@typing/types';
+import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
+import type { TToolbarItem } from '@typing/types';
 
 interface IToolbarItem {
     type: TToolbarItem
@@ -10,6 +10,6 @@ interface IToolbarItem {
 }
 
 export const toolbarItems: IToolbarItem[] = [
-    {type: 'search', component: <SearchButton/>},
-    {type: 'bookmarks', component: <BookmarksButton/>},
+    { type: 'search', component: <SearchButton /> },
+    { type: 'bookmarks', component: <BookmarksButton /> },
 ];

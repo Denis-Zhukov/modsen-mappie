@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React, { createContext } from 'react';
 
 interface Context {
     mapRef: React.MutableRefObject<ymaps.Map | undefined> | null,

@@ -1,4 +1,5 @@
 import {BASE_URL, urls} from '@constants/urls';
+import {getAccessToken, setAccessToken} from '@utils/localStorage';
 import axios from 'axios';
 
 export const $api = axios.create({
@@ -7,23 +8,17 @@ export const $api = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
+    config.headers.Authorization = `Bearer ${getAccessToken()}`;
     return config;
 });
 
-$api.interceptors.response.use((config) => {
-    return config;
-}, async (error) => {
+$api.interceptors.response.use((config) => config, async (error) => {
     const originalRequest = error.config;
     if (error.response.status === 401 && error.config && !error.config._isRetry) {
         originalRequest._isRetry = true;
-        try {
-            const response = await axios.post(urls.refresh, {}, {withCredentials: true});
-            localStorage.setItem('access_token', response.data.access);
-            return $api.request(originalRequest);
-        } catch (e) {
-            console.log('Unauthorized');
-        }
+        const {data} = await axios.post<{ access: string }>(urls.refresh, {}, {withCredentials: true});
+        setAccessToken(data.access);
+        return $api.request(originalRequest);
     }
     throw error;
 });

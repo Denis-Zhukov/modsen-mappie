@@ -1,11 +1,10 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 
-import {icons} from '@constants/icons';
-import {useActions} from '@hooks';
-import {Placemark} from '@pbe/react-yandex-maps';
+import { icons } from '@constants/icons';
+import { useActions } from '@hooks';
+import { Placemark } from '@pbe/react-yandex-maps';
 
-import type {TPlaceKind} from '@typing/types';
-
+import type { TPlaceKind } from '@typing/types';
 
 interface Props {
     id: number,
@@ -13,11 +12,11 @@ interface Props {
     geometry: [number, number],
 }
 
-export const Place: FC<Props> = React.memo(({id, geometry, type}) => {
-    const {showPlaceInfo} = useActions();
+export const Place: FC<Props> = React.memo(({ id, geometry, type }) => {
+    const { showPlaceInfo } = useActions();
 
     const handleClick = () => {
-        showPlaceInfo({id});
+        showPlaceInfo({ id });
     };
 
     return (
@@ -32,6 +31,4 @@ export const Place: FC<Props> = React.memo(({id, geometry, type}) => {
             onClick={handleClick}
         />
     );
-}, ({geometry: prevGeometry}, {geometry: nextGeometry}) => {
-    return prevGeometry[0] === nextGeometry[0] && prevGeometry[1] === nextGeometry[1];
-});
+}, ({ geometry: prevGeometry }, { geometry: nextGeometry }) => prevGeometry[0] === nextGeometry[0] && prevGeometry[1] === nextGeometry[1]);

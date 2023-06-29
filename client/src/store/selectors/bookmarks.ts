@@ -1,4 +1,4 @@
-import {RootState} from '@store/index';
+import { RootState } from '@store/index';
 
 export const selectToggleFavoriteStatus = ({
     bookmarks: {
@@ -14,4 +14,4 @@ export const selectToggleFavoriteStatus = ({
     loading: loadingToggleFavoritePlace,
 });
 
-export const selectFavoritePlaces = ({bookmarks}: RootState) => bookmarks.favoritePlaces;
+export const selectFavoritePlaces = ({ bookmarks }: RootState) => bookmarks.favoritePlaces;
