@@ -1,4 +1,4 @@
-import adult from '@images/sight-icons/18+.svg';
+import adult from '@images/sight-icons/adult.svg';
 import architecture from '@images/sight-icons/architecture.svg';
 import avocation from '@images/sight-icons/avocation.svg';
 import bank from '@images/sight-icons/bank.svg';
