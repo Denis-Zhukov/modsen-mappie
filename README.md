@@ -1,8 +1,32 @@
-# MODSEN ТЕСТОВОЕ ЗАДАНИЕ
+# MODSEN TEST TASK
 
-**Тестовое задание “Путеводитель по городу”**
+**Test task “City guide”**
 
-<h3><a href="https://guide-modsen.vercel.app/" target="_blank">VERCEL</a></h3>
+## START UP:
+
+1. You should run the server first:
+```shell
+npm run start:dev
+```
+or
+```shell
+npm run build
+```
+2. Then you can run the client:
+```shell
+npm run start
+```
+or
+```shell
+npm run build
+```
+Initially, the client is available on port 3000 and the server on port 8000
+
+## HOSTINGS:
+
+* <h3><a href="https://guide-modsen.vercel.app/" target="_blank">VERCEL</a></h3>
+
+## TASK <sup>ru</sup>:
 
 1. Создайте компонент "Map" для отображения карты с маркерами достопримечательностей.
 2. Реализуйте возможность получения геопозиции пользователя и центрирования карты на этой позиции.
