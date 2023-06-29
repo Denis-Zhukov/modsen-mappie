@@ -1,15 +1,16 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
-import {useMarkerRotation, useGeoLocation, useActions} from '@hooks';
+import { useMarkerRotation, useGeoLocation, useActions } from '@hooks';
 import marker from '@images/person.svg';
-import {Placemark, useYMaps} from '@pbe/react-yandex-maps';
+import { Placemark, useYMaps } from '@pbe/react-yandex-maps';
 
 import s from './style.module.scss';
 
-
-export const PersonMarker = () => {
-    const {latitude, longitude, accuracy,error} = useGeoLocation(5000);
-    const {setPersonPosition} = useActions();
+export function PersonMarker() {
+    const {
+        latitude, longitude, accuracy, error,
+    } = useGeoLocation(5000);
+    const { setPersonPosition } = useActions();
 
     useEffect(() => {
         setPersonPosition({
@@ -29,11 +30,12 @@ export const PersonMarker = () => {
             alt="Me" 
             class=${s.marker}
             style="transform: rotate(${Math.round(heading)}deg);"
-        />`,
-    );
+        />`);
 
-    return <Placemark
-        options={{iconLayout: template}}
-        geometry={[latitude, longitude]}
-    />;
-};
+    return (
+        <Placemark
+            options={{ iconLayout: template }}
+            geometry={[latitude, longitude]}
+        />
+    );
+}

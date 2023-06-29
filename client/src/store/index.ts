@@ -1,4 +1,4 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import applicationReducer from './slices/application';
 import bookmarksReducer from './slices/bookmarks';

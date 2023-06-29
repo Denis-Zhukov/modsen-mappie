@@ -12,15 +12,13 @@ import s from './style.module.scss';
 
 import type {TPlaceKind} from '@typing/types';
 
-
-export const FilterList = () => {
+export function FilterList() {
     const {toggleItemFilter} = useActions();
-    const filter = useAppSelector(selectTypeFilter);
+    const types = useAppSelector(selectTypeFilter);
 
-    const handleToggle = (value: TPlaceKind) => {
+    const handleToggle = (value: TPlaceKind) => () => {
         toggleItemFilter({item: value});
     };
-
 
     return (
         <List dense sx={{bgcolor: 'background.paper'}} className={s.categories}>
@@ -28,19 +26,21 @@ export const FilterList = () => {
                 const labelId = `checkbox-list-secondary-label-${type}`;
                 return (
                     <ListItem
-                        onClick={() => handleToggle(type)}
+                        onClick={handleToggle(type)}
                         key={type}
-                        secondaryAction={
+                        secondaryAction={(
                             <Checkbox
                                 edge="end"
-                                checked={filter.includes(type)}
+                                checked={types.includes(type)}
                                 inputProps={{'aria-labelledby': labelId}}
                             />
-                        }
+                        )}
                         disablePadding
                     >
                         <ListItemButton>
-                            <ListItemIcon className={s.iconWrapper}><img src={icons[type].src} alt={type} className={s.icon}/></ListItemIcon>
+                            <ListItemIcon className={s.iconWrapper}>
+                                <img src={icons[type].src} alt={type} className={s.icon}/>
+                            </ListItemIcon>
                             <ListItemText id={labelId} primary={icons[type].text}/>
                         </ListItemButton>
                     </ListItem>
@@ -48,4 +48,4 @@ export const FilterList = () => {
             })}
         </List>
     );
-};
+}

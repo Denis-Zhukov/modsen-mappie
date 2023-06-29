@@ -1,11 +1,11 @@
 import s from '@components/Toolbar/style.module.scss';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-import {IconButton} from '@mui/material';
+import { IconButton } from '@mui/material';
 
-export const BookmarksButton = () => {
+export function BookmarksButton() {
     return (
         <IconButton className={`${s.bookmarkBtn} ${s.btn}`}>
-            <BookmarkIcon/>
+            <BookmarkIcon />
         </IconButton>
     );
-};
+}

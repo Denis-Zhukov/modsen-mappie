@@ -1,12 +1,12 @@
-import {BookmarksService} from '@api/BookmarksService';
+import {BookmarksService} from '@api';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
 import type {RootState} from '@store/index';
+import type {IToggleFavoritePlaceResponse} from '@typing/interfaces';
 
-export const toggleFavoritePlaceThunk = createAsyncThunk<any, number, { state: RootState }>(
+
+export const toggleFavoritePlaceThunk = createAsyncThunk<IToggleFavoritePlaceResponse, number, { state: RootState }>(
     'bookmarks/toggleFavoritePlace',
-    async (placeId) => {
-        const {data} = await BookmarksService.toggleFavoritePlace(placeId);
-        return data;
-    }, {dispatchConditionRejection: true},
+    async (placeId) => await BookmarksService.toggleFavoritePlace(placeId) as IToggleFavoritePlaceResponse,
+    {dispatchConditionRejection: true},
 );

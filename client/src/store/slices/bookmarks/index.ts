@@ -1,7 +1,7 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {getFavoritePlacesThunk} from '@store/slices/bookmarks/getFavoritePlacesThunk';
-import {toggleFavoritePlaceThunk} from '@store/slices/bookmarks/toggleFavoritePlaceThunk';
-import {IPlace} from '@typing/interfaces';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getFavoritePlacesThunk } from '@store/slices/bookmarks/getFavoritePlacesThunk';
+import { toggleFavoritePlaceThunk } from '@store/slices/bookmarks/toggleFavoritePlaceThunk';
+import { IPlace } from '@typing/interfaces';
 
 interface State {
     favoritePlaces: IPlace[],
@@ -42,7 +42,7 @@ const bookmarksSlice = createSlice({
                 state.errorToggleFavoritePlace = null;
                 state.successToggleFavoritePlace = false;
             })
-            .addCase(toggleFavoritePlaceThunk.fulfilled, (state, {payload}: PayloadAction<{
+            .addCase(toggleFavoritePlaceThunk.fulfilled, (state, { payload }: PayloadAction<{
                 added: boolean,
                 deleted: boolean
             }>) => {
@@ -71,5 +71,5 @@ const bookmarksSlice = createSlice({
     },
 });
 
-export const {actions: bookmarksActions} = bookmarksSlice;
+export const { actions: bookmarksActions } = bookmarksSlice;
 export default bookmarksSlice.reducer;

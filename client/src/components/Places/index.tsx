@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 
 import {Place} from '@components/Place';
 
@@ -8,12 +8,16 @@ interface Props {
     places: Omit<IPlace, 'tags'>[]
 }
 
-export const Places: FC<Props> = React.memo(({places}) => (<>
-    {places.map((place) => <Place key={place.id} id={place.id} geometry={place.position} type={place.type}/>)}
-</>), ({places: prevPlaces}, {places: nextPlaces}) => {
-    return nextPlaces.length === prevPlaces.length &&
-        nextPlaces.every(
+function checkEqualsPlaces({places: prevPlaces}: Readonly<Props>, {places: nextPlaces}: Readonly<Props>) {
+    return nextPlaces.length === prevPlaces.length
+        && nextPlaces.every(
             ({id: nextId}) => prevPlaces.find(
-                ({id: prevId}) => prevId === nextId),
-        );
-});
+                ({id: prevId}) => prevId === nextId));
+}
+
+export const Places = React.memo<Props>(({places}: Props) => (
+    <>
+        {places.map((place) => <Place key={place.id} id={place.id} geometry={place.position} type={place.type}/>)}
+    </>),
+checkEqualsPlaces,
+);

@@ -1,5 +1,7 @@
 import {useEffect, useState} from 'react';
 
+import {Errors} from '@constants/Errors';
+
 export interface GeoLocation {
     latitude: number | null;
     longitude: number | null;
@@ -55,7 +57,7 @@ export const useGeoLocation = (retryTime?: number): GeoLocation => {
                     latitude: null,
                     longitude: null,
                     accuracy: null,
-                    error: 'Geolocation is not supported',
+                    error: Errors.GeoNotSupported,
                 });
                 if (retryTime) retry = setTimeout(watchLocation, retryTime);
             }

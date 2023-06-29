@@ -1,5 +1,5 @@
 import {Endpoints} from '@constants/Endpoints';
-import {Main} from '@pages/Main';
+import {Head} from '@pages/Head';
 import {NotFound} from '@pages/NotFound';
 import {createBrowserRouter} from 'react-router-dom';
 
@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: Endpoints.Main,
-                element: <Main/>,
+                element: <Head/>,
             },
         ],
     },

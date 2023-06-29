@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {Profile} from '@components/Profile';
 import {ToolbarItem} from '@components/ToolbarItem';
 import {toolbarItems} from '@constants/toolbarItems';
@@ -7,8 +5,7 @@ import {Box, Paper, Stack} from '@mui/material';
 
 import s from './style.module.scss';
 
-
-export const Toolbar = React.memo(() => (
+export const Toolbar = () => (
     <Paper className={s.wrapper}>
         <Stack direction="column" className={s.toolbar} alignItems="center" spacing={2}>
             <Box
@@ -23,4 +20,4 @@ export const Toolbar = React.memo(() => (
             <Profile/>
         </Stack>
     </Paper>
-));
+);

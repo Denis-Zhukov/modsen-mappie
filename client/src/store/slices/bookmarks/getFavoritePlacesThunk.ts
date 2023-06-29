@@ -1,11 +1,11 @@
-import {BookmarksService} from '@api/BookmarksService';
+import {BookmarksService} from '@api';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
 import type {RootState} from '@store/index';
+import type {IPlace} from '@typing/interfaces';
 
-export const getFavoritePlacesThunk = createAsyncThunk<any, void, { state: RootState }>(
+export const getFavoritePlacesThunk = createAsyncThunk<IPlace[], void, { state: RootState }>(
     'bookmarks/getFavoritePlaces',
-    async (state, thunkAPI) => {
-        return await BookmarksService.getFavoritePlaces();
-    }, {dispatchConditionRejection: true},
+    async () => await BookmarksService.getFavoritePlaces(),
+    {dispatchConditionRejection: true},
 );
