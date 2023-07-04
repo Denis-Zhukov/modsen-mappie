@@ -1,4 +1,4 @@
-import s from '@components/Toolbar/style.module.scss';
+import s from '@components/Controls/Toolbar/style.module.scss';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { IconButton } from '@mui/material';
 

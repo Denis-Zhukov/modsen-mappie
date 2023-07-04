@@ -1,7 +1,7 @@
 import { urls } from '@constants/urls';
 import axios from 'axios';
 
-import { $api } from './instance';
+import { axiosInstance } from './AxiosInstance';
 
 export class AuthService {
     public static async login(credentials: string) {
@@ -10,7 +10,7 @@ export class AuthService {
     }
 
     public static async checkAuth(accessToken: string) {
-        const response = await $api.post(urls.checkAuth, { accessToken }, { withCredentials: true });
+        const response = await axiosInstance.post(urls.checkAuth, { accessToken }, { withCredentials: true });
         return response.data;
     }
 

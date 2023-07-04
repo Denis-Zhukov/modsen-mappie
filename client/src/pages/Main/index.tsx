@@ -7,7 +7,7 @@ import { MapContext } from '@context/MapContext';
 import { useActions } from '@hooks';
 import {getAccessToken} from '@utils/localStorage';
 
-import s from './style.module.scss';
+import styles from './style.module.scss';
 
 export function Head() {
     const { setMapSettings, setUser } = useActions();
@@ -22,13 +22,13 @@ export function Head() {
         setMapSettings({ center: [lat, lon], zoom });
 
         if (getAccessToken()) {
-            AuthService.checkAuth(localStorage.getItem('access_token')!)
+            AuthService.checkAuth(getAccessToken()!)
                 .then((user) => {
                     setUser({
                         user: {
                             id: user.id,
                             picture: user.picture,
-                            access: localStorage.getItem('access_token')!,
+                            access: getAccessToken()!,
                         },
                     });
                 });
@@ -37,7 +37,7 @@ export function Head() {
 
     return (
         <MapContext.Provider value={{ mapRef, routeRef }}>
-            <div className={s.container}>
+            <div className={styles.container}>
                 <Controls />
                 <Map />
             </div>

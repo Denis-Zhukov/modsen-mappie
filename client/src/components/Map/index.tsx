@@ -1,26 +1,26 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 
-import { MapBody } from '@components/MapBody';
-import { MapContext } from '@context/MapContext';
-import { useActions, useAppSelector } from '@hooks';
-import { Map as YMap } from '@pbe/react-yandex-maps';
-import { selectMapSettings } from '@store/selectors/geolocation';
-import { useSearchParams } from 'react-router-dom';
+import {MapBody} from '@components/Map/MapBody';
+import {MapContext} from '@context/MapContext';
+import {useActions, useAppSelector} from '@hooks';
+import {Map as YMap} from '@pbe/react-yandex-maps';
+import {selectMapSettings} from '@store/selectors/geolocation';
+import {useSearchParams} from 'react-router-dom';
 
-import s from './style.module.scss';
+import styles from './style.module.scss';
 
 export function Map() {
-    const { mapRef } = useContext(MapContext);
-    const { setMapSettings } = useActions();
+    const {mapRef} = useContext(MapContext);
+    const {setMapSettings} = useActions();
     const mapSettings = useAppSelector(selectMapSettings);
-    const [, setSearchParams] = useSearchParams();
+    const [_, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         const timer = setTimeout(() => setSearchParams({
             lat: `${mapSettings.center[0]}`,
             lon: `${mapSettings.center[1]}`,
             zoom: `${mapSettings.zoom}`,
-        }, { replace: true }), 750);
+        }, {replace: true}), 750);
         return () => clearTimeout(timer);
     }, [mapSettings, setSearchParams]);
 
@@ -28,8 +28,8 @@ export function Map() {
         const map = event.get('target');
         const [lat, lon] = map.getCenter();
         const zoom = map.getZoom();
-        setMapSettings({ center: [lat, lon], zoom });
-    }, [setMapSettings]);
+        setMapSettings({center: [lat, lon], zoom});
+    }, []);
 
     return (
         <YMap
@@ -40,11 +40,11 @@ export function Map() {
                 copyrightProvidersVisible: false,
                 copyrightUaVisible: false,
             }}
-            className={s.map}
+            className={styles.map}
             onBoundsChange={handleBoundsChange}
             instanceRef={mapRef!}
         >
-            <MapBody />
+            <MapBody/>
         </YMap>
     );
 }

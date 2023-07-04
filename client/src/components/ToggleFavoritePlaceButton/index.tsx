@@ -7,7 +7,7 @@ import { Button } from '@mui/material';
 import { selectToggleInfo, selectUser } from '@store/selectors/application';
 import { selectToggleFavoriteStatus } from '@store/selectors/bookmarks';
 
-import s from './style.module.scss';
+import styles from './style.module.scss';
 
 export function ToggleFavoritePlaceButton() {
     const { toggleFavoritePlaceThunk, clearToggleStatus } = useActions();
@@ -31,7 +31,7 @@ export function ToggleFavoritePlaceButton() {
             <Button
                 variant="outlined"
                 startIcon={<BookmarkIcon />}
-                className={s.saveBtn}
+                className={styles.saveBtn}
                 color="error"
                 onClick={handleToggle}
                 disabled={user === null || loading}

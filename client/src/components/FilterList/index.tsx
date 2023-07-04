@@ -8,7 +8,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {selectTypeFilter} from '@store/selectors/application';
 
-import s from './style.module.scss';
+import styles from './style.module.scss';
 
 import type {TPlaceKind} from '@typing/types';
 
@@ -21,7 +21,7 @@ export function FilterList() {
     };
 
     return (
-        <List dense sx={{bgcolor: 'background.paper'}} className={s.categories}>
+        <List dense sx={{bgcolor: 'background.paper'}} className={styles.categories}>
             {typeIcons.map((type) => {
                 const labelId = `checkbox-list-secondary-label-${type}`;
                 return (
@@ -38,8 +38,8 @@ export function FilterList() {
                         disablePadding
                     >
                         <ListItemButton>
-                            <ListItemIcon className={s.iconWrapper}>
-                                <img src={icons[type].src} alt={type} className={s.icon}/>
+                            <ListItemIcon className={styles.iconWrapper}>
+                                <img src={icons[type].src} alt={type} className={styles.icon}/>
                             </ListItemIcon>
                             <ListItemText id={labelId} primary={icons[type].text}/>
                         </ListItemButton>

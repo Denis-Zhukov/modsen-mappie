@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
-import { PersonInaccuracy } from '@components/PersonInaccuracy';
-import { PersonMarker } from '@components/PersonMarker';
-import { PersonRadius } from '@components/PersonRadius';
-import { Places } from '@components/Places';
+import { PersonInaccuracy } from '@components/PersonArea/PersonInaccuracy';
+import { PersonMarker } from '@components/PersonArea/PersonMarker';
+import { PersonRadius } from '@components/PersonArea/PersonRadius';
+import { Places } from '@components/PersonArea/Places';
 import { useActions, useAppSelector } from '@hooks';
 import { selectTypeFilter } from '@store/selectors/application';
 import { selectPersonCoords, selectPlaces, selectRadius } from '@store/selectors/geolocation';

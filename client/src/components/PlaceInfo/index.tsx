@@ -10,7 +10,7 @@ import { Skeleton, Stack, Typography } from '@mui/material';
 import { selectPlaceInfo } from '@store/selectors/application';
 import { selectToggleFavoriteStatus } from '@store/selectors/bookmarks';
 
-import s from './style.module.scss';
+import styles from './style.module.scss';
 
 export function PlaceInfo() {
     const { getInfoAboutPlaceThunk } = useActions();
@@ -29,10 +29,10 @@ export function PlaceInfo() {
                     <Skeleton variant="circular" width={40} height={40} />
                 </Stack>
                 <Skeleton variant="text" sx={{ fontSize: '3rem' }} />
-                <Typography align="justify" className={s.description}>
+                <Typography align="justify" className={styles.description}>
                     <Skeleton variant="text" sx={{ fontSize: '1.5rem' }} />
                 </Typography>
-                <Stack direction="row" className={s.bottomBtns} justifyContent="space-between" flexWrap="wrap" gap={1}>
+                <Stack direction="row" className={styles.bottomBtns} justifyContent="space-between" flexWrap="wrap" gap={1}>
                     <Skeleton variant="rounded" width={100} height={30} />
                     <Skeleton variant="rounded" width={100} height={30} />
                 </Stack>
@@ -53,18 +53,18 @@ export function PlaceInfo() {
 
     return (
         <>
-            <img src={place.tags.image ?? noImage} alt="img" className={s.mainPicture} />
+            <img src={place.tags.image ?? noImage} alt="img" className={styles.mainPicture} />
             <Stack direction="row">
-                <img src={icons[place.type].src} alt={icons[place.type].text} className={s.icon} />
+                <img src={icons[place.type].src} alt={icons[place.type].text} className={styles.icon} />
             </Stack>
             <h2>{place.tags['name:ru'] ?? place.tags.name}</h2>
             <Typography
                 align="justify"
-                className={s.description}
+                className={styles.description}
             >
                 {place.tags.description ?? 'Описание отсутствует'}
             </Typography>
-            <Stack direction="row" className={s.bottomBtns} justifyContent="space-between" flexWrap="wrap" gap={1}>
+            <Stack direction="row" className={styles.bottomBtns} justifyContent="space-between" flexWrap="wrap" gap={1}>
                 <ToggleFavoritePlaceButton />
                 <RouteButton />
             </Stack>

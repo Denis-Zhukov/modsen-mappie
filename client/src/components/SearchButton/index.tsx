@@ -1,4 +1,4 @@
-import s from '@components/Toolbar/style.module.scss';
+import s from '@components/Controls/Toolbar/style.module.scss';
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton } from '@mui/material';
 

@@ -4,7 +4,7 @@ import { useMarkerRotation, useGeoLocation, useActions } from '@hooks';
 import marker from '@images/person.svg';
 import { Placemark, useYMaps } from '@pbe/react-yandex-maps';
 
-import s from './style.module.scss';
+import styles from './style.module.scss';
 
 export function PersonMarker() {
     const {
@@ -28,7 +28,7 @@ export function PersonMarker() {
         <img 
             src="${marker}" 
             alt="Me" 
-            class=${s.marker}
+            class=${styles.marker}
             style="transform: rotate(${Math.round(heading)}deg);"
         />`);
 

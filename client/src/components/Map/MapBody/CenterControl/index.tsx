@@ -14,8 +14,8 @@ export const CenterControl = React.memo(() => {
         <GeolocationControl
             options={{
                 position: {
-                    bottom: '1rem',
-                    right: '3rem',
+                    bottom: '16px',
+                    right: '48px',
                 },
                 // @ts-ignore
                 noPlacemark: true,

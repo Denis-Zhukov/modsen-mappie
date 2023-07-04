@@ -1,6 +1,6 @@
 .sidePanel {
-  max-width: calc(100vw - 100% - 3rem);
-  width: min(300px, calc(100vw - 100% - 3rem));
+  max-width: calc(100vw - 100% - 48px);
+  width: min(300px, calc(100vw - 100% - 48px));
   height: calc(100vh - 3rem);
 
   overflow-y: auto;
@@ -9,5 +9,5 @@
   left: 100%;
   top: 0;
   z-index: 999;
-  padding: 1.5rem;
+  padding: 24px;
 }

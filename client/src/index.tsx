@@ -1,23 +1,24 @@
 import React from 'react';
 
-import { YMaps } from '@pbe/react-yandex-maps';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import {env} from '@constants/env';
+import {YMaps} from '@pbe/react-yandex-maps';
+import {GoogleOAuthProvider} from '@react-oauth/google';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { RouterProvider } from 'react-router-dom';
+import {Provider} from 'react-redux';
+import {RouterProvider} from 'react-router-dom';
 
-import { router } from './routes';
-import { store } from './store';
+import {router} from './routes';
+import {store} from './store';
 import 'normalize.css';
-import './styles/global.css';
+import '@styles/global.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_OAUTH_GOOGLE!}>
+    <GoogleOAuthProvider clientId={env.googleClientId}>
         <Provider store={store}>
-            <YMaps query={{ apikey: process.env.REACT_APP_YANDEX_API_KEY }}>
-                <RouterProvider router={router} />
+            <YMaps query={{apikey: env.yandexApi}}>
+                <RouterProvider router={router}/>
             </YMaps>
         </Provider>
     </GoogleOAuthProvider>,

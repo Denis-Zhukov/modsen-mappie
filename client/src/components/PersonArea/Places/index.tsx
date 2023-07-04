@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {Place} from '@components/Place';
+import {Place} from './Place';
 
-import type {IPlace} from '@typing/interfaces';
+import type {IPlaceWithoutDescription} from '@typing/interfaces';
 
 interface Props {
-    places: Omit<IPlace, 'tags'>[]
+    places: IPlaceWithoutDescription[]
 }
 
 function checkEqualsPlaces({places: prevPlaces}: Readonly<Props>, {places: nextPlaces}: Readonly<Props>) {

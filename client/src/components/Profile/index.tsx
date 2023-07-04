@@ -9,7 +9,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import {GoogleLogin} from '@react-oauth/google';
 import {selectUser} from '@store/selectors/application';
 
-import s from './style.module.scss';
+import styles from './style.module.scss';
 
 import type {CredentialResponse} from '@react-oauth/google';
 
@@ -51,7 +51,7 @@ export function Profile() {
                                 component="img"
                                 alt="Avatar"
                                 src={user.picture}
-                                className={s.avatar}
+                                className={styles.avatar}
                                 onClick={handleClick}
                                 aria-controls={open ? 'account-menu' : undefined}
                                 aria-haspopup="true"

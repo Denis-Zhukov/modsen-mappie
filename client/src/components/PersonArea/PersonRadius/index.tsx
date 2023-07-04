@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { useAppSelector } from '@hooks';
-import { Circle } from '@pbe/react-yandex-maps';
-import { selectPersonCoords, selectRadius } from '@store/selectors/geolocation';
+import {Colors} from '@constants/Colors';
+import {useAppSelector} from '@hooks';
+import {Circle} from '@pbe/react-yandex-maps';
+import {selectPersonCoords, selectRadius} from '@store/selectors/geolocation';
 
 export function PersonRadius() {
     const [latitude, longitude] = useAppSelector(selectPersonCoords);
@@ -14,7 +15,7 @@ export function PersonRadius() {
         <Circle
             geometry={[[latitude, longitude], radius]}
             options={{
-                fillColor: '#5E7BC7',
+                fillColor: Colors.Blue,
                 fillOpacity: 0.1,
                 strokeColor: '#5E7BC7',
                 strokeWidth: 3,

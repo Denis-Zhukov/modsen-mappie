@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {Colors} from '@constants/Colors';
 import { useAppSelector } from '@hooks';
 import { Circle } from '@pbe/react-yandex-maps';
 import { selectPersonAndGeoInaccuracy } from '@store/selectors/geolocation';
@@ -11,7 +12,7 @@ export function PersonInaccuracy() {
         <Circle
             geometry={[coords, inaccuracy]}
             options={{
-                fillColor: '#5e7bc7',
+                fillColor: Colors.Blue,
                 fillOpacity: 0.2,
                 strokeWidth: 0,
                 cursor: 'drag',

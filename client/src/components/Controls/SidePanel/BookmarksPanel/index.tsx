@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import {useCallback, useEffect} from 'react';
 
-import { useActions, useAppSelector } from '@hooks';
+import {useActions, useAppSelector} from '@hooks';
 import noImage from '@images/placeholders/no-image.png';
 import {
     Alert,
@@ -13,36 +13,39 @@ import {
     Typography,
     Skeleton,
 } from '@mui/material';
-import { selectUser } from '@store/selectors/application';
+import {selectUser} from '@store/selectors/application';
 
-import s from './style.module.scss';
+import styles from './style.module.scss';
 
 export function BookmarksPanel() {
     const user = useAppSelector(selectUser);
-    const [places, loading] = useAppSelector(({ bookmarks }) => [bookmarks.favoritePlaces, bookmarks.loadingFavoritePlaces]);
-    const { getFavoritePlacesThunk, showPlaceInfo } = useActions();
+    const [places, loading] = useAppSelector(({bookmarks}) => [bookmarks.favoritePlaces, bookmarks.loadingFavoritePlaces]);
+    const {getFavoritePlacesThunk, showPlaceInfo} = useActions();
 
     useEffect(() => {
         getFavoritePlacesThunk();
     }, [getFavoritePlacesThunk]);
 
-    const handleClick = (id: number) => {
-        showPlaceInfo({ id });
-    };
+    const handleClick = useCallback((id: number) => () => {
+        showPlaceInfo({id});
+    }, [showPlaceInfo]);
+
+
 
     if (loading) {
+        const skeletonItems = [...Array(3)];
         return (
             <>
-                {[0, 1, 2].map((k) => (
-                    <Card className={s.card} key={k}>
+                {skeletonItems.map((_, key) => (
+                    <Card className={styles.card} key={key}>
                         <CardActionArea>
-                            <Skeleton variant="rectangular" height={140} />
+                            <Skeleton variant="rectangular" height={140}/>
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
-                                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+                                    <Skeleton variant="text" sx={{fontSize: '1rem'}}/>
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+                                    <Skeleton variant="text" sx={{fontSize: '1rem'}}/>
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
@@ -58,7 +61,7 @@ export function BookmarksPanel() {
         return (
             <Paper>
                 <Alert severity="info">
-                  Для использования закладок необходимо авторизоваться
+                    Для использования закладок необходимо авторизоваться
                 </Alert>
             </Paper>
         );
@@ -68,7 +71,7 @@ export function BookmarksPanel() {
         return (
             <Alert severity="info">
                 <AlertTitle>Пусто</AlertTitle>
-              Закладки отсутствуют
+                Закладки отсутствуют
             </Alert>
         );
     }
@@ -78,8 +81,8 @@ export function BookmarksPanel() {
             {places.map((p) => (
                 <Card
                     key={p.id}
-                    className={s.card}
-                    onClick={() => handleClick(p.id)}
+                    className={styles.card}
+                    onClick={handleClick(p.id)}
                 >
                     <CardActionArea>
                         <CardMedia

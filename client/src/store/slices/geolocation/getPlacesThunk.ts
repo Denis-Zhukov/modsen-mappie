@@ -9,7 +9,7 @@ export const getPlacesThunk = createAsyncThunk<IPlaceWithoutDescription[], void,
     async (_, thunkApi) => {
         const {personCoords: [lat, lon], radius} = thunkApi.getState().geolocation;
         if (!lat || !lon) return [];
-        return await PlacesService.getPlaces(lat, lon, radius, thunkApi.getState().application.typeFilter);
+        return await PlacesService.getPlaces({lat, lon, radius, filter: thunkApi.getState().application.typeFilter});
     },
     {dispatchConditionRejection: true},
 );

@@ -1,6 +1,6 @@
-import { BookmarksPanel } from '@components/BookmarksPanel';
+import { BookmarksPanel } from '@components/Controls/SidePanel/BookmarksPanel';
+import { SearchPanel } from '@components/Controls/SidePanel/SearchPanel';
 import { PlaceInfo } from '@components/PlaceInfo';
-import { SearchPanel } from '@components/SearchPanel';
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { TToolbarItem } from '@typing/types';
 

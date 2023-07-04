@@ -1,5 +1,5 @@
 import {Endpoints} from '@constants/Endpoints';
-import {Head} from '@pages/Head';
+import {Head} from '@pages/Main';
 import {NotFound} from '@pages/NotFound';
 import {createBrowserRouter} from 'react-router-dom';
 

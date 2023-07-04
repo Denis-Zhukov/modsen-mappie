@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 
 import { FilterList } from '@components/FilterList';
-import { RadiusInput } from '@components/RadiusInput';
 import { useActions, useAppSelector } from '@hooks';
 import SearchIcon from '@mui/icons-material/Search';
 import {
@@ -9,6 +8,8 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+
+import { RadiusInput } from './RadiusInput';
 
 export function SearchPanel() {
     const { setNameFilter } = useActions();
